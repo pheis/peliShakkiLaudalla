@@ -1,4 +1,4 @@
-# Tammiproggis
+# Shakkiproggis
 
 **Aihe:** Shakki lautapeli javalla. Valmiin ohjelman pitäisi osata arvioida, haluttu siirto laudalla sääntöjen mukainen.
 
