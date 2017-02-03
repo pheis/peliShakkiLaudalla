@@ -15,6 +15,10 @@ public class MoveValidator {
 	public MoveValidator(Board b) {
 		this.firstBoard = b;
 	}
+	
+	
+	
+	
 
 
 

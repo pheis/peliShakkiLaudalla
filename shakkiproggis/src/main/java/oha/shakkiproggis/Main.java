@@ -6,7 +6,8 @@
 package oha.shakkiproggis;
 
 import  oha.shakkiproggis.Piece;
-import  oha.shakkiproggis.Square;
+
+import java.util.*;
 
 import java.util.stream.Stream;
 
@@ -21,6 +22,43 @@ public class Main {
 		Board board = new Board();
 		
 		board.piecesToStartingFormation();
+		
+		//System.out.println(board.whitePawnMoves(Square.D2));
+		
+		//System.out.println(board.movesOfThisPiece(Square.B1));
+		
+		//board.printPieces();
+		
+		board.mySquares()
+			.flatMap(x -> board.movesOfThisPiece(x).map(y -> new StringBuilder().append(x.toString())
+				.append("  ").append(y.toString()).toString()))
+			.forEach(z -> System.out.println(z));
+				
+				
+			//.forEach(x -> System.out.println("" + y + "" + x));
+		
+		ArrayList<Board> bs = board.listPossibleMoves();
+		
+		bs.forEach(b -> System.out.println(b));
+		
+		//System.out.println(board.possible());
+		
+		//Board b2 = board.makeAmove(Square.A2, Square.A4);
+		
+		
+		//b2.mySquares().forEach(x -> System.out.println(x));
+		
+		//System.out.println(b2.enemyPieces);
+		//System.out.println(b2.myPieces);
+		
+		//System.out.println(b2.possible());
+		
+ 		//bs.forEach(x -> System.out.println(x.possible()));
+		
+		
+		
+		//boards.forEach(x -> x.printPieces());
+		
 		
 		//Stream<Square> mySquares = board.mySquares();
 		//mySquares.forEach(x->System.out.println(""+x));
