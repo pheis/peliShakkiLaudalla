@@ -5,6 +5,7 @@
  */
 package oha.shakkiproggis;
 import java.util.EnumSet;
+import java.util.stream.Collectors;
 import oha.shakkiproggis.Board;
 import oha.shakkiproggis.Square;
 import org.junit.After;
@@ -47,7 +48,8 @@ public class blackPawnAttackTest {
 			Board b;		
 		b = new Board();
 		EnumSet<Square> attacks = EnumSet.noneOf(Square.class);
-		assertEquals(attacks, b.blackPawnAttacts(Square.C1));
+		assertEquals(attacks, b.blackPawnAttacks(Square.C1)
+			.collect(Collectors.toCollection(() -> EnumSet.noneOf(Square.class))));
 	
 	}
 }

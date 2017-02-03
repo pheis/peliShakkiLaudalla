@@ -7,7 +7,10 @@
 package oha.shakkiproggis;
 
 import java.util.EnumSet;
+import java.util.stream.Collectors;
 import oha.shakkiproggis.Board;
+import oha.shakkiproggis.Board;
+import oha.shakkiproggis.Square;
 import oha.shakkiproggis.Square;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -55,7 +58,8 @@ public class BishopSlidingAttackTest {
 		attacks.add(Square.B2);
 		attacks.add(Square.A1);
 		
-		assertEquals(attacks, b.bishopAttacks(Square.A1));
+		assertEquals(attacks, b.bishopAttacks(Square.A1)
+			.collect(Collectors.toCollection(() -> EnumSet.noneOf(Square.class))));
 
 
 }

@@ -5,6 +5,7 @@
  */
 package oha.shakkiproggis;
 import java.util.EnumSet;
+import java.util.stream.Collectors;
 import oha.shakkiproggis.Board;
 import oha.shakkiproggis.Square;
 import org.junit.After;
@@ -57,6 +58,6 @@ public class QueenAttackTest {
 		attacks.add(Square.B2);
 		attacks.add(Square.A2);
 		
-		assertEquals(attacks, b.queenAttacks(Square.A1));
+		assertEquals(attacks, b.queenAttacks(Square.A1).collect(Collectors.toCollection(() -> EnumSet.noneOf(Square.class))));
 	}
 }

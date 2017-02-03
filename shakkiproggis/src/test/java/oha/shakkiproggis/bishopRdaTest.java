@@ -5,6 +5,7 @@
  */
 package oha.shakkiproggis;
 import java.util.EnumSet;
+import java.util.stream.Collectors;
 import oha.shakkiproggis.Board;
 import oha.shakkiproggis.Square;
 import org.junit.After;
@@ -59,6 +60,6 @@ public class bishopRdaTest {
 		attacks.add(Square.G2);
 		attacks.add(Square.A6);
 		attacks.add(Square.C8);
-		assertEquals(attacks, b.bishopAttacks(Square.B7));
+		assertEquals(attacks, b.bishopAttacks(Square.B7).collect(Collectors.toCollection(() -> EnumSet.noneOf(Square.class))));
 	}
 }

@@ -1,3 +1,5 @@
+package oha.shakkiproggis;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -12,6 +14,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import java.util.*;
+import java.util.stream.Collectors;
 import oha.shakkiproggis.Square;
 
 /**
@@ -49,7 +52,7 @@ public class KnightTest {
 		EnumSet<Square> attacks = EnumSet.noneOf(Square.class);
 		attacks.add(Square.C2);
 		attacks.add(Square.B3);
-		assertEquals(attacks, b.knightAttacks(Square.A1));
+		assertEquals(attacks, b.knightAttacks(Square.A1).collect(Collectors.toCollection(() -> EnumSet.noneOf(Square.class))));
 
 	}
 }

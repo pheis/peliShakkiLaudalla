@@ -4,10 +4,7 @@
  * and open the template in the editor.
  */
 package oha.shakkiproggis;
-import java.util.EnumSet;
-import java.util.stream.Collectors;
-import oha.shakkiproggis.Board;
-import oha.shakkiproggis.Square;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -19,9 +16,9 @@ import static org.junit.Assert.*;
  *
  * @author pyry
  */
-public class whitePawnAttackTest {
+public class multipleMovesTest {
 	
-	public whitePawnAttackTest() {
+	public multipleMovesTest() {
 	}
 	
 	@BeforeClass
@@ -43,14 +40,25 @@ public class whitePawnAttackTest {
 	// TODO add test methods here.
 	// The methods must be annotated with annotation @Test. For example:
 	//
+	// @Test
+	// public void hello() {}
 	@Test
 	public void hello() {
-		Board b;		
-		b = new Board();
-		EnumSet<Square> attacks = EnumSet.noneOf(Square.class);
-		attacks.add(Square.B3);
-		attacks.add(Square.D3);
-		assertEquals(attacks, b.whitePawnAttacks(Square.C2).collect(Collectors.toCollection(() -> EnumSet.noneOf(Square.class))));
+		
+		Board board = new Board();
+		board.piecesToStartingFormation();
+		
+		//ArrayList<Board> bs = board.listPossibleMoves();
+		
+		Board b2 = board.makeAmove(Square.E2, Square.E4).get();
+		Board b3 = b2.makeAmove(Square.D7, Square.D5).get();
+		Board b4 = b3.makeAmove(Square.E4, Square.D5).get();
+		String a = "E4 -> D5";
+		
+		//int howManyPieces = b4.myPieces.size();
+		
+		assertEquals(15,b4.myPieces.size());
 	
 	}
 }
+

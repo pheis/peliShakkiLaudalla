@@ -41,13 +41,13 @@ public class diagonalTest {
 
 
 	@Test public void dtestR() {
-		Board b;		
-		b = new Board();
+		//Board b;		
+		//b = new Board();
 		
 		EnumSet<Square> sq = EnumSet.noneOf(Square.class);
 		
-		b.allSquaresOnBoard()
-			.filter((Square x) -> (b.onSameRightDiagonal(Square.A1, x)))
+		Square.allSquaresOnBoard()
+			.filter((Square x) -> (Square.onSameRightDiagonal(Square.A1, x)))
 			.forEach(sq::add);
 		
 		

@@ -45,13 +45,13 @@ public class diagonalleftTest {
 	// @Test
 	// public void hello() {}
 		@Test public void dtestL() {
-		Board b;		
-		b = new Board();
+		//Board b;		
+		//b = new Board();
 		
 		EnumSet<Square> sq = EnumSet.noneOf(Square.class);
 		
-		b.allSquaresOnBoard()
-			.filter((Square x) -> (b.onSameLeftDiagonal(Square.A1, x)))
+		Square.allSquaresOnBoard()
+			.filter((Square x) -> (Square.onSameLeftDiagonal(Square.A1, x)))
 			.forEach(sq::add);
 		
 		

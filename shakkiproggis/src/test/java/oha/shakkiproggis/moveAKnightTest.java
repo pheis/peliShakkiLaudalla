@@ -4,10 +4,7 @@
  * and open the template in the editor.
  */
 package oha.shakkiproggis;
-import java.util.EnumSet;
-import java.util.stream.Collectors;
-import oha.shakkiproggis.Board;
-import oha.shakkiproggis.Square;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -19,9 +16,9 @@ import static org.junit.Assert.*;
  *
  * @author pyry
  */
-public class whitePawnAttackTest {
+public class moveAKnightTest {
 	
-	public whitePawnAttackTest() {
+	public moveAKnightTest() {
 	}
 	
 	@BeforeClass
@@ -43,14 +40,21 @@ public class whitePawnAttackTest {
 	// TODO add test methods here.
 	// The methods must be annotated with annotation @Test. For example:
 	//
-	@Test
+	// @Test
+	// public void hello() {}
+		@Test
 	public void hello() {
-		Board b;		
-		b = new Board();
-		EnumSet<Square> attacks = EnumSet.noneOf(Square.class);
-		attacks.add(Square.B3);
-		attacks.add(Square.D3);
-		assertEquals(attacks, b.whitePawnAttacks(Square.C2).collect(Collectors.toCollection(() -> EnumSet.noneOf(Square.class))));
+		
+		Board board = new Board();
+		board.piecesToStartingFormation();
+		
+		//ArrayList<Board> bs = board.listPossibleMoves();
+		
+		Board b2 = board.makeAmove(Square.B1, Square.A3).get();
+		
+		String a = "B1 -> A3";
+		
+		assertEquals(a,b2.toString());
 	
 	}
 }
