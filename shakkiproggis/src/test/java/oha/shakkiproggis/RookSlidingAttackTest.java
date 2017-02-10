@@ -4,7 +4,10 @@
  * and open the template in the editor.
  */
 package oha.shakkiproggis;
+import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.EnumSet;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import oha.shakkiproggis.Board;
 import oha.shakkiproggis.Square;
@@ -45,17 +48,46 @@ public class RookSlidingAttackTest {
 	//
 	@Test
 	public void hello() {
-		Board b;		
-		b = new Board();
-		EnumSet<Square> attacks = EnumSet.noneOf(Square.class);
 		
-		b.piecesToStartingFormation();
+		EnumMap<Square, Piece> mp = new EnumMap<>(Square.class);
 		
-		attacks.add(Square.A1);
-		attacks.add(Square.B1);
-		attacks.add(Square.A2);
+
 		
-		assertEquals(attacks, b.rookAttacks(Square.A1).collect(Collectors.toCollection(() -> EnumSet.noneOf(Square.class))));
+		mp.put(Square.E1, Piece.KING);
+		mp.put(Square.A1, Piece.ROOK);
+		
+		
+		EnumMap<Square, Piece> ep = new EnumMap<>(Square.class);
+		
+		ep.put(Square.F8, Piece.KING);
+		ep.put(Square.A6, Piece.WPAWN);
+		
+		
+		boolean[] ts = new boolean[7];
+		
+		for (int i = 0; i < 7;i++) {
+			ts[i] = true;
+		}
+		
+		ts[0] = false;
+		
+		Optional<Square> epp = Optional.empty();
+		
+		String n = "F7F8";
+		
+		Board b = new Board(mp , ep, ts, epp, n);
+		
+		ArrayList<Board> nBoards = b.listPossibleMoves();
+		StringBuilder sb = new StringBuilder();
+		nBoards.forEach(x -> sb.append(x.toString()));
+		String ans = sb.toString();
+		
+		String corr = "A1B1A1C1A1D1A1A2A1A3A1A4A1A5A1A6E1D1E1F1E1D2E1E2E1F2";
+		
+		
+		
+		
+		assertEquals(corr, ans);
 
 
 	}

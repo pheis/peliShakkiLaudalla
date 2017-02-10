@@ -12,7 +12,13 @@ public class Board {
 	public EnumMap<Square, Piece> myPieces;
 	public EnumMap<Square, Piece> enemyPieces;
 	
-	private final boolean iAmWhite;
+	
+	/**
+	 * Tells if curret player is white.
+	 * if true -> current player is white.
+	 * else -> current player is black.
+	 */
+	public final boolean iAmWhite;
 	
 	private final boolean myKingMoved;
 	private final boolean myARookMoved;
@@ -42,6 +48,14 @@ public class Board {
 		
 		this.name = "";
 	}
+	/**
+	 * Creates new game state.
+	 * @param mp my Pieces and their locations on the board
+	 * @param ep enemy Pieces and their locations on the board
+	 * @param ts an array of booleans, tells if current player is black or white and about castling
+	 * @param epp optional square that exists if there is a pawn that can be en passanted
+	 * @param n name of the board.	Tells from where and to where the last player has moved a piece.
+	 */
 	public Board(EnumMap<Square, Piece> mp, EnumMap<Square, Piece> ep, boolean[] ts, Optional<Square> epp, String n) {
 		this.myPieces = mp;
 		this.enemyPieces = ep;
@@ -54,6 +68,16 @@ public class Board {
 		this.enemyHRookMoved = ts[6];
 		this.enpassantablePawn = epp;
 		this.name = n;
+		
+		/*System.out.println("###########################");
+		System.out.println(ts[0]);
+		System.out.println(ts[1]);
+		System.out.println(ts[2]);
+		System.out.println(ts[3]);
+		System.out.println(ts[4]);
+		System.out.println(ts[5]);
+		System.out.println(ts[6]);
+		System.out.println("####################################");*/
 	}
 	
 	private void myPiecesToStartingFormation() {
@@ -77,8 +101,8 @@ public class Board {
 		enemyPieces.put(Square.A8, Piece.ROOK);
 		enemyPieces.put(Square.B8, Piece.KNIGHT);
 		enemyPieces.put(Square.C8, Piece.BISHOP);
-		enemyPieces.put(Square.D8, Piece.KING);
-		enemyPieces.put(Square.E8, Piece.QUEEN);
+		enemyPieces.put(Square.E8, Piece.KING);
+		enemyPieces.put(Square.D8, Piece.QUEEN);
 		enemyPieces.put(Square.F8, Piece.BISHOP);
 		enemyPieces.put(Square.G8, Piece.KNIGHT);
 		enemyPieces.put(Square.H8, Piece.ROOK);
@@ -96,9 +120,18 @@ public class Board {
 		enemyPiecesToStartingFormation();
 	}
 
+	/**
+	 * Tells players piece locations
+	 * @return Square stream that contains current players all piece locations as Squares
+	 */
+	
 	public Stream<Square> mySquares() {
 		return this.myPieces.keySet().stream();
 	}
+	/**
+	 * Tells enemys piece locations
+	 * @return A Stream of locations
+	 */
 	public Stream<Square> enemySquares() {
 		return this.enemyPieces.keySet().stream();
 	}
@@ -106,25 +139,25 @@ public class Board {
 		return Stream.concat(mySquares(), enemySquares());
 	}
 	
-	public Stream<Square> knightAttacks(Square s) {
+	private Stream<Square> knightAttacks(Square s) {
 		return Square.allSquares()
 			.filter((Square x) -> (Square.manhattanDistance(s, x) == 3))
 			.filter((Square x) -> (Square.euclidianDistance(s, x) == 2));
 	}
-	public Stream<Square> blackPawnAttacks(Square s) {
+	private Stream<Square> blackPawnAttacks(Square s) {
 		return Square.allSquares()
 			.filter((Square x) -> (Square.manhattanDistance(s, x) == 2))
 			.filter((Square x) -> (Square.euclidianDistance(s, x) == 1))
 			.filter((Square x) -> (x.ordinal() < s.ordinal()));
 	}
-	public Stream<Square> whitePawnAttacks(Square s) {
+	private Stream<Square> whitePawnAttacks(Square s) {
 		//en passant puuttuu.
 		return Square.allSquares()
 			.filter((Square x) -> (Square.manhattanDistance(s, x) == 2))
 			.filter((Square x) -> (Square.euclidianDistance(s, x) == 1))
 			.filter((Square x) -> (x.ordinal() > s.ordinal()));
 	}
-	public Stream<Square> kingAttacks(Square s) {
+	private Stream<Square> kingAttacks(Square s) {
 		return Square.allSquares()
 			.filter((Square x) -> (Square.euclidianDistance(s, x) == 1));
 	}
@@ -152,23 +185,23 @@ public class Board {
 			.filter((Square x) -> (x.ordinal() <= supremum(onSame, s).orElse(Square.H8.ordinal())));
 	}
 	
-	public Stream<Square> rookAttacks(Square s) {
+	private Stream<Square> rookAttacks(Square s) {
 		Stream<Square> rank = slideOn((x, y)->Square.onSameRank(x, y), s);
 		Stream<Square> file = slideOn((x, y)->Square.onSameFile(x, y), s);
 		return Stream.concat(rank, file);
 	}
 	
-	public Stream<Square> bishopAttacks(Square s) {
+	private Stream<Square> bishopAttacks(Square s) {
 		Stream<Square> leftD = slideOn((x, y)->Square.onSameLeftDiagonal(x, y), s);
 		Stream<Square> rightD = slideOn((x, y)->Square.onSameRightDiagonal(x, y), s);
 		return Stream.concat(leftD, rightD);
 	}
 	
-	public Stream<Square> queenAttacks(Square s) {
+	private Stream<Square> queenAttacks(Square s) {
 		return Stream.concat(rookAttacks(s), bishopAttacks(s));
 	}
 	
-	public Stream<Square> linkPieceToAttack(Square s, Piece p) {
+	private Stream<Square> linkPieceToAttack(Square s, Piece p) {
 		switch (p) {
 			case KING:
 				return kingAttacks(s);	
@@ -190,14 +223,13 @@ public class Board {
 		}
 	}
 
-	public Stream<Square> attacks(EnumMap<Square, Piece> pieces) {
+	private Stream<Square> attacks(EnumMap<Square, Piece> pieces) {
 		return pieces.keySet()
 			.stream()
 			.flatMap((Square x) -> linkPieceToAttack(x, pieces.get(x)));
 	}
 	
 	public Square kingSquare(EnumMap<Square, Piece> pieces) {
-		// TÄÄLLÄ ON BUGI!! LÖYSIN GUBIN!!
 		return pieces.keySet().stream()
 			.filter((Square x) -> (pieces.get(x) == Piece.KING))
 			.findFirst()
@@ -211,19 +243,19 @@ public class Board {
 			.findAny()
 			.isPresent();
 	}
-	
-	public boolean possible() {
+
+	private boolean possible() {
 		return !(kingInCheck(this.enemyPieces, this.myPieces));
 	}
 	
-	public Stream<Square> kingMoves() {
+	private Stream<Square> kingMoves() {
 		return kingAttacks(kingSquare(this.myPieces))
 			.filter((Square x) -> !(mySquares().anyMatch(y -> y == x)))
 			.filter((Square x) -> !(attacks(this.enemyPieces).anyMatch((Square y) -> (y == x))));
 			//.collect(Collectors.toCollection(() -> EnumSet.noneOf(Square.class)));
 	}
 	
-	public Stream<Square> whitePawnMoves(Square s) {
+	private Stream<Square> whitePawnMoves(Square s) {
 		//EnumSet<Square> moves = EnumSet.noneOf(Square.class);
 		int moveDist = (s.ordinal() <= Square.H2.ordinal() && Square.A2.ordinal() <= s.ordinal()) ? 2 : 1;
 		Stream<Square> moves = slideOn((x, y)->Square.onSameFile(x, y), s)
@@ -238,7 +270,7 @@ public class Board {
 		return Stream.concat(moves, attackMoves);
 	}
 	
-	public Stream<Square> blackPawnMoves(Square s) {
+	private Stream<Square> blackPawnMoves(Square s) {
 		//EnumSet<Square> moves = EnumSet.noneOf(Square.class);
 		int moveDist = (s.ordinal() <= Square.H7.ordinal() && Square.A7.ordinal() <= s.ordinal()) ? 2 : 1;
 		Stream<Square> moves = slideOn((x, y)->Square.onSameFile(x, y), s)
@@ -250,31 +282,27 @@ public class Board {
 		Stream<Square> attackMoves = blackPawnAttacks(s)
 						.filter(x -> (enemySquares().anyMatch(y -> y == x)));
 						//.collect(Collectors.toCollection(() -> moves));
-		return Stream.concat(moves, attackMoves);
+		
+		Stream<Square> both = Stream.concat(moves, attackMoves);
+		return both;
 	}
 	
-	public Optional<Square> addEnPassant(Square s) {
-		return this.enpassantablePawn.isPresent() ? 
-			enemySquares()
-				.filter(x -> (Square.isSideBySide(x, s)))
-				.filter(x -> (x == enpassantablePawn.get()))
-				.findAny() : Optional.empty();
-	}
+
+
 	
-	
-	public Stream<Square> movesOfThisPiece(Square s) {
+	private Stream<Square> movesOfThisPiece(Square s) {
 		Piece p = this.myPieces.get(s);
 		if (p == null) {
 			return EnumSet.noneOf(Square.class).stream();
 		}
 		if (p == Piece.KING) {
-			return kingMoves();
+			return Stream.concat(kingMoves(), Stream.concat(shortCastling(), longCastling()));
 		}
 		if (p == Piece.WPAWN) {
-			return whitePawnMoves(s);
+			return Stream.concat(whitePawnMoves(s), whitePawnEnpassant(s));
 		}
 		if (p == Piece.BPAWN) {
-			return blackPawnMoves(s);
+			return Stream.concat(blackPawnMoves(s), blackPawnEnpassant(s));
 		} else {
 			return linkPieceToAttack(s, p)
 				.filter(x -> !(mySquares().anyMatch(y -> (x == y)))); // Remove squares occupied by me
@@ -300,36 +328,73 @@ public class Board {
 	
 	private boolean enpassEmerges(Square a, Square b) {
 		boolean t = (this.myPieces.get(a) == Piece.BPAWN || this.myPieces.get(a) == Piece.WPAWN);
-		t = (t) ? (b.ordinal() - a.ordinal() == 16) : t;
+		t = (t) ? (Math.abs(b.ordinal() - a.ordinal()) == 16) : t;
 		return t;
 	}
 
 	private boolean[] generateBools(Square a) {
 		boolean[] ts = new boolean[7];
-		ts[0] = !(this.iAmWhite);
-		ts[1] = (this.myKingMoved) ? true : (this.myPieces.get(a) != Piece.KING);
-		ts[2] = (this.myARookMoved) ? true : (this.myPieces.get(a) != Piece.ROOK ? a == Square.A1 : false);
-		ts[3] = (this.myARookMoved) ? true : (this.myPieces.get(a) != Piece.ROOK ? a == Square.H1 : false);
-		ts[4] = this.enemyKingMoved;
-		ts[5] = this.enemyARookMoved;
-		ts[6] = this.enemyHRookMoved;
+		ts[0] = !(this.iAmWhite);	
+		ts[4] = this.myKingMoved ? true : (this.myPieces.get(a) == Piece.KING);
+		ts[5] = (this.myARookMoved) ? true : (this.myPieces.get(a) != Piece.ROOK ? a == Square.A1 : false);
+		ts[6] = (this.myARookMoved) ? true : (this.myPieces.get(a) != Piece.ROOK ? a == Square.H1 : false);
+		ts[1] = this.enemyKingMoved;
+		ts[2] = this.enemyARookMoved;
+		ts[3] = this.enemyHRookMoved;
 		return ts;
 	}
 	
+	private void castling(EnumMap<Square, Piece> nep, Square a, Square b) {	
+		if (this.myPieces.get(a) == Piece.KING && Square.euclidianDistance(a, b) == 2) {
+			if (iAmWhite) {
+				if (b == Square.G1) {
+					nep.remove(Square.H1);
+					nep.put(Square.F1, Piece.ROOK);
+				} else if (b == Square.C1) {
+					nep.remove(Square.A1);
+					nep.put(Square.D1, Piece.ROOK);
+				}
+			} else {
+				if (b == Square.G8) {
+					nep.remove(Square.H8);
+					nep.put(Square.F8, Piece.ROOK);
+				} else if (b == Square.C8) {
+					nep.remove(Square.A8);
+					nep.put(Square.D8, Piece.ROOK);
+				}
+			}
+		}
+	}
+	
+	
+	
+	/**
+	 * Generates a new board based on the move that player/Ai does.
+	 * @param a Piece previous location
+	 * @param b New location of the piece
+	 * @return 
+	 */
 	public Optional<Board> makeAmove(Square a, Square b) {
-	//public Board makeAmove(Square a, Square b) {
 		EnumMap<Square, Piece> nep = moveMyPiece(a, b);
 		EnumMap<Square, Piece> nmp = eatEnemyPiece(b);
 		Optional<Square> enPassantable = (enpassEmerges(a, b)) ? Optional.of(b) : Optional.empty();
-		String newName = (a.toString() + " -> " + b.toString());
+		
+		String newName = (a.toString() + b.toString());
+		castling(nep, a, b);
+		
+		if (whitePawnEnpassant(a).anyMatch(x -> x == b) || blackPawnEnpassant(a).anyMatch(x -> x == b)) {
+			nmp.remove(this.enpassantablePawn.get());
+		}
+		
 		Board board = new Board(nmp, nep, generateBools(a), enPassantable, newName);
-		//return board;
 		return (board.possible()) ? Optional.of(board) : Optional.empty();
 	}
 	
 	
-	
-	
+	/**
+	 * Lists possible moves from current game situation.
+	 * @return an ArrayList that contains all the gamestates that are possible from the current game state
+	 */
 	public ArrayList<Board> listPossibleMoves() {
 		ArrayList<Board> boards = new ArrayList<>();
 		mySquares()
@@ -340,20 +405,99 @@ public class Board {
 			.forEach(z -> boards.add(z));
 		return boards;
 	}
-
 	
+		
+	public Optional<Square> enPassant(Square s) {
+		return this.enpassantablePawn.isPresent() ? 
+			enemySquares()
+				.filter(x -> (Square.isSideBySide(x, s)))
+				.filter(x -> (x == enpassantablePawn.get()))
+				.findAny() : Optional.empty();
+	}
 	
-			/*
-			.flatmap(x -> movesOfThisPiece(x).map(y -> makeAmove(x, y))
-				.filter(z->z.isPresent())
-				.map(z->z.get())
-				.sequential()
-				.forEach(z->boards.add(z)));*/
+	public Stream<Square> whitePawnEnpassant(Square s) {
+		if (enPassant(s).isPresent()) {
+			return Square.allSquares()
+				.filter(x -> (x.ordinal() == enPassant(s).get().ordinal() + 8));
+		} else {
+			return Stream.empty();
+		}
+	}
+	
+	public Stream<Square> blackPawnEnpassant(Square s) {
+		if (enPassant(s).isPresent()) {
+			return Square.allSquares()
+				.filter(x -> (x.ordinal() == enPassant(s).get().ordinal() - 8));
+		} else {
+			return Stream.empty();
+		}
+	}
+	
+	public Stream<Square> shortCastling() {
+		if (this.myKingMoved || this.myHRookMoved || kingInCheck(this.myPieces, this.enemyPieces)) {
+			//System.out.println("FOFOFFOFO");
+			return Stream.empty();
+		} else {
+			if (this.iAmWhite) {
 				
+				if (Stream.concat(mySquares(), attacks(this.enemyPieces)).filter(x -> (x == Square.F1 || x == Square.G1))
+								.findAny()
+								.isPresent()) {
+								//System.out.println("asdfasdfasdf");
+					return Stream.empty();		
+								
+				} else {
+					//System.out.println("qwerty");
+					return Stream.of(Square.G1);
+				}
+			
+			} else {
+				if (Stream.concat(mySquares(), attacks(this.enemyPieces)).filter(x -> (x == Square.F8 || x == Square.G8))
+								.findAny()
+								.isPresent()) {
+					return Stream.empty();
+				} else {
+					return Stream.of(Square.G8);
+			
+				}
+			}
+		}
+	}
 		
+	public Stream<Square> longCastling() {
+		if (this.myKingMoved || this.myARookMoved || kingInCheck(this.myPieces, this.enemyPieces)) {
+			return Stream.empty();
+		} else {
+			if (this.iAmWhite) {
+				if (Stream.concat(mySquares(), attacks(this.enemyPieces)).filter(x -> (x == Square.D1 || x == Square.C1))
+								.findAny()
+								.isPresent()) {
+					return Stream.empty();
+				} else {
+					return Stream.of(Square.C1);
+				}
+			
+			} else {
+				if (Stream.concat(mySquares(), attacks(this.enemyPieces)).filter(x -> (x == Square.D8 || x == Square.C8))
+								.findAny()
+								.isPresent()) {
+					return Stream.empty();
+				} else {
+					return Stream.of(Square.C8);
+			
+				}
+			}
+		}
+	}
+	/**
+	 * Tells if current players King is in check
+	 * @return true if king is in check.
+	 */
+	public boolean myKingInCheck() {
+		return kingInCheck(myPieces, enemyPieces);
+	}
 		
-		//boards = boards.stream()
-			//.filter(x -> x.possible())
+	
 	
 	@Override
 	public String toString() {

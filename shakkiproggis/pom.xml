@@ -42,6 +42,7 @@
 					<targetClasses>
 						<param>oha.shakkiproggis.*</param>
 						<param>oha.shakkiproggis.*</param>
+                                                <param>oha.ai.*</param>
 					</targetClasses>
 						<targetTests>
 					        <param>oha.shakkiproggis.*</param>

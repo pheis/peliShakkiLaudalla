@@ -6,10 +6,14 @@
 
 package oha.shakkiproggis;
 
+import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.EnumSet;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import oha.shakkiproggis.Board;
 import oha.shakkiproggis.Board;
+import oha.shakkiproggis.Piece;
 import oha.shakkiproggis.Square;
 import oha.shakkiproggis.Square;
 import org.junit.After;
@@ -49,17 +53,49 @@ public class BishopSlidingAttackTest {
 	//
 	@Test
 	public void bishopAttackTest() {
-		Board b;		
-		b = new Board();
-		EnumSet<Square> attacks = EnumSet.noneOf(Square.class);
+		//Board b;		
+		//b = new Board();
+		//EnumSet<Square> attacks = EnumSet.noneOf(Square.class);
 		
-		b.piecesToStartingFormation();
+		//b.piecesToStartingFormation();
 		
-		attacks.add(Square.B2);
-		attacks.add(Square.A1);
+		//attacks.add(Square.A1);
 		
-		assertEquals(attacks, b.bishopAttacks(Square.A1)
-			.collect(Collectors.toCollection(() -> EnumSet.noneOf(Square.class))));
+		EnumMap<Square, Piece> mp = new EnumMap<>(Square.class);
+		
+		mp.put(Square.F1, Piece.BISHOP);
+		
+		mp.put(Square.E1, Piece.KING);
+		
+		
+		EnumMap<Square, Piece> ep = new EnumMap<>(Square.class);
+		
+		ep.put(Square.F8, Piece.KING);
+		
+		
+		
+		boolean[] ts = new boolean[7];
+		
+		for (int i = 0; i < 7;i++) {
+			ts[i] = true;
+		}
+		
+		Optional<Square> epp = Optional.empty();
+		
+		String n = "F7F8";
+		
+		Board b = new Board(mp , ep, ts, epp, n);
+		
+		ArrayList<Board> nBoards = b.listPossibleMoves();
+		StringBuilder sb = new StringBuilder();
+		nBoards.forEach(x -> sb.append(x.toString()));
+		String ans = sb.toString();
+		
+		String corr = "E1D1E1D2E1E2E1F2F1E2F1D3F1C4F1B5F1A6F1G2F1H3";
+	
+		
+		
+		assertEquals(corr, ans);
 
 
 }

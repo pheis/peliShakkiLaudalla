@@ -6,5 +6,8 @@ Päivä      | Tunnit | Kuvaus                                                 |
 27.01.2017 | 12h    | Kaiken koodin uudelleen kirjoittaminen, PIT,checkstyle,luokkakaavio... |
 31.01.2017 | 5h     | Koodin uudelleen jakoa luokkiin, lisää logiikkaa
 02.02.2017 | 1h     | vähän logiikkaa lisää
-03.02.2017 | 7h     | ziljoona checkstylekorjausta, lisää logiikka, PIT, Luokkakaavio, Readme.md jne. |
+03.02.2017 | 7h     | ziljoona checkstylekorjausta, lisää logiikka, PIT, Luokkakaavio, Readme.md jne.|
+06.02.2015 | 9h     | graafinen käyttis, tekstikäyttis, tekoäly              |
+09.02.2017 | 4h     | graafinen käyttis, tekoäly |
+10.02.2017 | 80h	| graafinen käyttis, tekoäly, testejä lisää, ja uudelleen kirjoitus, javadoc |
 

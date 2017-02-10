@@ -51,7 +51,7 @@ public class movePieceTest {
 		
 		Board b2 = board.makeAmove(Square.A2, Square.A4).get();
 		
-		String a = "A2 -> A4";
+		String a = "A2A4";
 		
 		assertEquals(a,b2.toString());
 	

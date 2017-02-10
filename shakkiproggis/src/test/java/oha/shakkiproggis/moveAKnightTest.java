@@ -52,7 +52,7 @@ public class moveAKnightTest {
 		
 		Board b2 = board.makeAmove(Square.B1, Square.A3).get();
 		
-		String a = "B1 -> A3";
+		String a = "B1A3";
 		
 		assertEquals(a,b2.toString());
 	

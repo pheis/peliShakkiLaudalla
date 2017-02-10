@@ -4,7 +4,10 @@
  * and open the template in the editor.
  */
 package oha.shakkiproggis;
+import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.EnumSet;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import oha.shakkiproggis.Board;
 import oha.shakkiproggis.Square;
@@ -45,11 +48,46 @@ public class blackPawnAttackTest {
 	//
 	@Test
 	public void onTheEdgeofTheBoardTest() {
-			Board b;		
-		b = new Board();
-		EnumSet<Square> attacks = EnumSet.noneOf(Square.class);
-		assertEquals(attacks, b.blackPawnAttacks(Square.C1)
-			.collect(Collectors.toCollection(() -> EnumSet.noneOf(Square.class))));
+		
+		EnumMap<Square, Piece> mp = new EnumMap<>(Square.class);
+		
+		mp.put(Square.B2, Piece.BPAWN);
+		
+		mp.put(Square.E1, Piece.KING);
+		
+		
+		EnumMap<Square, Piece> ep = new EnumMap<>(Square.class);
+		
+		ep.put(Square.F8, Piece.KING);
+		
+		ep.put(Square.C1, Piece.KNIGHT);
+		ep.put(Square.A1, Piece.KNIGHT);
+		ep.put(Square.B1, Piece.KNIGHT);
+		
+		boolean[] ts = new boolean[7];
+		
+		for (int i = 0; i < 7;i++) {
+			ts[i] = true;
+		}
+		
+		ts[0] = false;
+		
+		Optional<Square> epp = Optional.empty();
+		
+		String n = "F7F8";
+		
+		Board b = new Board(mp , ep, ts, epp, n);
+		
+		ArrayList<Board> nBoards = b.listPossibleMoves();
+		StringBuilder sb = new StringBuilder();
+		nBoards.forEach(x -> sb.append(x.toString()));
+		String ans = sb.toString();
+		
+		String corr = "E1D1E1F1E1F2B2A1B2C1";
+		
+		
+		assertEquals(corr, ans);
 	
+		
 	}
 }

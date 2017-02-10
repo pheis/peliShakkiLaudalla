@@ -47,12 +47,48 @@ public class KnightTest {
 	//
 	@Test
 	public void knightsAttacks() {
-		Board b;		
-		b = new Board();
-		EnumSet<Square> attacks = EnumSet.noneOf(Square.class);
-		attacks.add(Square.C2);
-		attacks.add(Square.B3);
-		assertEquals(attacks, b.knightAttacks(Square.A1).collect(Collectors.toCollection(() -> EnumSet.noneOf(Square.class))));
+
+		
+		EnumMap<Square, Piece> mp = new EnumMap<>(Square.class);
+		mp.put(Square.E1, Piece.KING);
+		mp.put(Square.A1, Piece.KNIGHT);
+		
+		EnumMap<Square, Piece> ep = new EnumMap<>(Square.class);
+		
+		ep.put(Square.F8, Piece.KING);
+		ep.put(Square.A6, Piece.WPAWN);
+		
+		
+		boolean[] ts = new boolean[7];
+		
+		for (int i = 0; i < 7;i++) {
+			ts[i] = true;
+		}
+		
+		ts[0] = false;
+		
+		Optional<Square> epp = Optional.empty();
+		
+		String n = "F7F8";
+		
+		Board b = new Board(mp , ep, ts, epp, n);
+		
+		ArrayList<Board> nBoards = b.listPossibleMoves();
+		StringBuilder sb = new StringBuilder();
+		nBoards.forEach(x -> sb.append(x.toString()));
+		String ans = sb.toString();
+		
+		String corr = "A1C2A1B3E1D1E1F1E1D2E1E2E1F2";
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		assertEquals(corr, ans);
 
 	}
 }
