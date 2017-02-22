@@ -13,7 +13,7 @@ import javafx.scene.paint.Color;
 
 import javafx.scene.shape.Ellipse;
 import static oha.gui.ChessGUI.SQUARESIZE;
-import oha.shakkiproggis.Piece;
+import oha.shakkiproggis.Piece.PieceT;
 
 /**
  *
@@ -26,7 +26,7 @@ public class ChessPiece extends StackPane {
 	
 	//public chessPiece(int x, int y, Piece type, boolean isWhite) {
 	
-	public ChessPiece(int x, int y, Piece type, boolean isWhite, Iload img) {
+	public ChessPiece(int x, int y, PieceT type, boolean isWhite, Imageload img) {
 
 		relocate(x * SQUARESIZE, y * SQUARESIZE);
 		

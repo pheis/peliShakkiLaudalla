@@ -28,9 +28,19 @@ import oha.ai.AI;
  */
 public class ChessGUI extends Application {
 	int random = ThreadLocalRandom.current().nextInt(0, 2);	
-	Iload il = new Iload();
-	MoveValidator game = new MoveValidator();
-	AI ai = new AI(game);
+	Imageload il = new Imageload();
+	
+	
+	// promoChooserin kaa pitää ziigata kun implementoin värin valinnan.
+	
+	PawnPromoChooser pc1 = new PawnPromoChooser();
+	PawnPromoChooser pc2 = new PawnPromoChooser();
+	
+	MoveValidator mv = new MoveValidator(pc1, pc2);
+	
+	AI ai2 = new AI(mv, pc1);
+	
+	AI ai = new AI(mv, pc2);
 	int startX, startY, endX, endY;
 	boolean doingMove = false;
 	public static final int SQUARESIZE = 100;
@@ -46,26 +56,26 @@ public class ChessGUI extends Application {
 		for (int i = 0; i < HEIGHT; i++) {
 			for (int j = 0; j < WIDTH; j++) {
 				ChessSquare sq = new ChessSquare((i + j) % 2 == 0, i, j);
-				game.getMyPieces()
+				mv.getMyPieces()
 								.keySet()
 								.forEach(p ->
 								{
 									int gX = coordToGuiCoordX(p);
 									int gY = coordToGuiCoordY(p);
 									ChessPiece piece;
-									piece = new ChessPiece(gX, gY, game.getMyPieces().get(p), game.iAmWhite(), il);
+									piece = new ChessPiece(gX, gY, mv.getMyPieces().get(p), mv.iAmWhite(), il);
 									piecesList.add(piece);
 									pieces.getChildren().add(piece);
 								});
 
-				game.getEnemyPieces()
+				mv.getEnemyPieces()
 								.keySet()
 								.forEach(p ->
 								{		
 									int gX = coordToGuiCoordX(p);
 									int gY = coordToGuiCoordY(p);
 									ChessPiece piece;
-									piece = new ChessPiece(gX, gY, game.getEnemyPieces().get(p), !game.iAmWhite(), il);
+									piece = new ChessPiece(gX, gY, mv.getEnemyPieces().get(p), !mv.iAmWhite(), il);
 									piecesList.add(piece);
 									pieces.getChildren().add(piece);
 								});
@@ -78,25 +88,25 @@ public class ChessGUI extends Application {
 	private void updCont() {
 		piecesList.forEach(p -> this.pieces.getChildren().remove(p));
 		piecesList.removeAll(piecesList);
-		game.getMyPieces().keySet()
+		mv.getMyPieces().keySet()
 						.forEach(p ->
 						{
 							int gX = coordToGuiCoordX(p);
 							int gY = coordToGuiCoordY(p);
 							ChessPiece piece;
-							piece = new ChessPiece(gX, gY, game.getMyPieces().get(p), game.iAmWhite(), il);
+							piece = new ChessPiece(gX, gY, mv.getMyPieces().get(p), mv.iAmWhite(), il);
 							piecesList.add(piece);
 							pieces.getChildren().add(piece);
 						});
 				
 				
-		game.getEnemyPieces().keySet()
+		mv.getEnemyPieces().keySet()
 						.forEach(p ->
 						{
 							int gX = coordToGuiCoordX(p);
 							int gY = coordToGuiCoordY(p);
 							ChessPiece piece;
-							piece = new ChessPiece(gX, gY, game.getEnemyPieces().get(p), !game.iAmWhite(), il);
+							piece = new ChessPiece(gX, gY, mv.getEnemyPieces().get(p), !mv.iAmWhite(), il);
 							piecesList.add(piece);
 							pieces.getChildren().add(piece);
 						});
@@ -138,24 +148,28 @@ public class ChessGUI extends Application {
 				int startSq = startX + (8 * startY);
 				int endSq = endX + (8 * endY);								
 				if (0 <= startSq && startSq <= 63 && 0 <= endSq && endSq <= 63) {			
-					StringBuilder sb = new StringBuilder();
-					sb.append("");
-					sb.append(Square.values()[startSq]);
-					sb.append(Square.values()[endSq]);
-					String wantedBoard = sb.toString();				
+					
+					Square a = Square.values()[startSq];
+					Square b = Square.values()[endSq];
+					
+					Move move = new Move(a, b);
+							
 					boolean t;			
-					t = game.movePiece(wantedBoard);				
+					t = mv.move(move);				
 					if (t) {
 						updCont();				
 						ai.move();	
 						updCont();
 					}	
 					System.out.println(t);	
-					System.out.println(wantedBoard);
+					System.out.println(move.toString());
 				}	
 			}
 			doingMove = false;
-		});	
+		});
+		
+
+			
 		primaryStage.setTitle("Very High Quality Chess Program");	
 		primaryStage.setScene(scene);
 		primaryStage.show();

@@ -44,13 +44,13 @@ public class moveAKnightTest {
 	// public void hello() {}
 		@Test
 	public void hello() {
-		
-		Board board = new Board();
-		board.piecesToStartingFormation();
-		
+		PawnPromoChooser pc1 = new PawnPromoChooser();
+		PawnPromoChooser pc2 = new PawnPromoChooser();
+		Board board = new Board(pc1, pc2);
+
 		//ArrayList<Board> bs = board.listPossibleMoves();
 		
-		Board b2 = board.makeAmove(Square.B1, Square.A3).get();
+		Board b2 = board.move(Square.B1, Square.A3).get();
 		
 		String a = "B1A3";
 		

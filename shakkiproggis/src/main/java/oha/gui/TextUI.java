@@ -10,6 +10,7 @@ import java.util.*;
 
 import java.util.HashMap;
 import oha.shakkiproggis.MoveValidator;
+import oha.shakkiproggis.PawnPromoChooser;
 
 /**
  *
@@ -18,6 +19,9 @@ import oha.shakkiproggis.MoveValidator;
 public class TextUI {
 	//private Board b1;
 	public MoveValidator mv;
+	
+	public PawnPromoChooser pc1;
+	public PawnPromoChooser pc2;
 	//private char[] ui;
 	public static final String ANSI_RESET = "\u001B[0m";
 	public static final String ANSI_BLACK = "\u001B[30m";
@@ -30,7 +34,7 @@ public class TextUI {
 	public static final String ANSI_WHITE = "\u001B[37m";
 	
 	public TextUI() {
-		mv = new MoveValidator();
+		mv = new MoveValidator(pc1, pc2);
 	}
 	
 	
@@ -57,7 +61,7 @@ public class TextUI {
 	
 	public void play() {
 		Scanner sc = new Scanner(System.in);
-		AI ai = new AI(mv);
+		AI ai = new AI(mv, pc2);
 		String input;
 		boolean t;
 		ai.move();
@@ -65,7 +69,7 @@ public class TextUI {
 			printUI();
 			System.out.println("Anna liike");
 			input = sc.nextLine();
-			t = mv.movePiece(input);
+			t = mv.move(input);
 			if (t) {
 				ai.move();
 			}

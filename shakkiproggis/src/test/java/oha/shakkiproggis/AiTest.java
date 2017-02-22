@@ -32,6 +32,8 @@ public class AiTest {
 	
 	@Before
 	public void setUp() {
+		
+
 	}
 	
 	@After
@@ -44,19 +46,23 @@ public class AiTest {
 	@Test
 	public void hello() {
 	
-			
-		MoveValidator mv = new MoveValidator();
+		PawnPromoChooser pc1 = new PawnPromoChooser();
+		PawnPromoChooser pc2 = new PawnPromoChooser();
 		
-		AI ai = new AI(mv);
+		MoveValidator mv = new MoveValidator(pc1, pc2);
+		
+		AI ai = new AI(mv, pc2);
+		
+
 		boolean t = true;
 			
-		t = t ? mv.movePiece("E2E3") : t;
+		t = t ? mv.move("E2E3") : t;
 		t = t ? ai.move() : t;
-		t = t ? mv.movePiece("F1E2") : t;
+		t = t ? mv.move("F1E2") : t;
 		t = t ? ai.move() : t;
-		t = t ? mv.movePiece("G1F3") : t;
+		t = t ? mv.move("G1F3") : t;
 		t = t ? ai.move() : t;
-		t = t ? mv.movePiece("E1G1") : t;
+		t = t ? mv.move("E1G1") : t;
 	
 		
 		assertEquals(true, t);

@@ -12,7 +12,7 @@ import static oha.gui.ChessGUI.SQUARESIZE;
  *
  * @author pyry
  */
-public class Iload {
+public class Imageload {
 	public Image wRook;
 	public Image wKing;
 	public Image wPawn;
@@ -26,7 +26,7 @@ public class Iload {
 	public Image bBishop;
 	public Image bKnight;
 	public Image bQueen;
-	public Iload() {
+	public Imageload() {
 		this.wRook = new Image("file:icons/wRook.png", SQUARESIZE, SQUARESIZE, false, false);
 		this.wKing = new Image("file:icons/wKing.png", SQUARESIZE, SQUARESIZE, false, false);
 		this.wPawn = new Image("file:icons/wPawn.png", SQUARESIZE, SQUARESIZE, false, false);

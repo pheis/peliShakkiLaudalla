@@ -43,19 +43,20 @@ public class CastlingTest {
 	//
 	@Test
 	public void whiteShortCastle() {
-	
-		MoveValidator mv = new MoveValidator();
+		PawnPromoChooser pc1 = new PawnPromoChooser();
+		PawnPromoChooser pc2 = new PawnPromoChooser();	
+		MoveValidator mv = new MoveValidator(pc1, pc2);
+		AI ai = new AI(mv, pc2);
 		
-		AI ai = new AI(mv);
 		boolean t;
 			
-		mv.movePiece("E2E3");
+		mv.move("E2E3");
 		ai.fmove();
-		mv.movePiece("F1E2");
+		mv.move("F1E2");
 		ai.fmove();
-		mv.movePiece("G1F3");
+		mv.move("G1F3");
 		ai.fmove();
-		t = mv.movePiece("E1G1");
+		t = mv.move("E1G1");
 	
 		assertEquals(true, t);
 	

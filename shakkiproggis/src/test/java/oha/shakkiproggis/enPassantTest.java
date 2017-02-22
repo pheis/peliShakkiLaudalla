@@ -7,7 +7,6 @@ package oha.shakkiproggis;
  */
 
 import oha.shakkiproggis.Board;
-import oha.shakkiproggis.Square;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -45,46 +44,61 @@ public class enPassantTest {
 	//
 	@Test
 	public void whiteEnPass() {
-	
-		Board board = new Board();
-		board.piecesToStartingFormation();
+
+		PawnPromoChooser pc1 = new PawnPromoChooser();
+		PawnPromoChooser pc2 = new PawnPromoChooser();
+		
+
+		MoveValidator mv = new MoveValidator(pc1, pc2);
+		//board.piecesToStartingFormation();
 		
 		//ArrayList<Board> bs = board.listPossibleMoves();
 		
-		Board b2 = board.makeAmove(Square.E2, Square.E4).get();
-		Board b3 = b2.makeAmove(Square.A7, Square.A5).get();
-		Board b4 = b3.makeAmove(Square.E4, Square.E5).get();
-		Board b5 = b4.makeAmove(Square.D7, Square.D5).get();
-		Board b6 = b5.makeAmove(Square.E5, Square.D6).get();
-		//String a = "E4 -> D5";
+		boolean t1 = mv.move("E2E4");
+		boolean t2 = mv.move("A7A5");
+		boolean t3 = mv.move("E4E5");
+		boolean t4 = mv.move("D7D5");
+		boolean t5 = mv.move("E5D6");
 		
+
+		
+		assertTrue(t1);
+		assertTrue(t2);
+		assertTrue(t3);
+		assertTrue(t4);
+		assertTrue(t5);
+		
+		assertTrue(mv.lastBoard().my.sqPtMap.size() == 15);
 		
 		//int howManyPieces = b6.myPieces.size();
 		
-		assertEquals(15, b6.myPieces.size());
+		//assertEquals(15, b6.my.sqPtMap.size());
 	
 	}
 	@Test
 	public void blackEnPass() {
 	
-		Board board = new Board();
-		board.piecesToStartingFormation();
-		
-		//ArrayList<Board> bs = board.listPossibleMoves();
-		
-		Board b2 = board.makeAmove(Square.A2, Square.A4).get();
-		Board b3 = b2.makeAmove(Square.D7, Square.D5).get();
-		Board b4 = b3.makeAmove(Square.B2, Square.B4).get();
-		Board b5 = b4.makeAmove(Square.D5, Square.D4).get();
-		Board b6 = b5.makeAmove(Square.E2, Square.E4).get();
-		Board b7 = b6.makeAmove(Square.D4, Square.E3).get();
-		//String a = "E4 -> D5";
+		PawnPromoChooser pc1 = new PawnPromoChooser();
+		PawnPromoChooser pc2 = new PawnPromoChooser();
 		
 		
-		//int howManyPieces = b6.myPieces.size();
+		MoveValidator mv = new MoveValidator(pc1, pc2);
 		
-		assertEquals(15, b7.myPieces.size());
-
+		boolean t1 = mv.move("A2A4");
+		boolean t2 = mv.move("D7D5");
+		boolean t3 = mv.move("B2B4");
+		boolean t4 = mv.move("D5D4");
+		boolean t5 = mv.move("E2E4");
+		boolean t6 = mv.move("D4E3");
+		
+		assertTrue(t1);
+		assertTrue(t2);
+		assertTrue(t3);
+		assertTrue(t4);
+		assertTrue(t5);
+		
+		assertTrue(mv.lastBoard().my.sqPtMap.size() == 15);
+		
 	
 	}
 }

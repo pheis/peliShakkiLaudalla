@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package oha.shakkiproggis;
+package oha.shakkiproggis.ai;
 
-import java.util.ArrayList;
+import oha.ai.AI;
+import oha.shakkiproggis.MoveValidator;
+import oha.shakkiproggis.PawnPromoChooser;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -17,9 +19,9 @@ import static org.junit.Assert.*;
  *
  * @author pyry
  */
-public class movePieceTest {
+public class aiplaysTest {
 	
-	public movePieceTest() {
+	public aiplaysTest() {
 	}
 	
 	@BeforeClass
@@ -43,17 +45,20 @@ public class movePieceTest {
 	//
 	@Test
 	public void hello() {
-		
-		PawnPromoChooser pc1 = new PawnPromoChooser();
-		PawnPromoChooser pc2 = new PawnPromoChooser();
-		Board board = new Board(pc1, pc2);
-		//ArrayList<Board> bs = board.listPossibleMoves();
-		
-		Board b2 = board.move(Square.A2, Square.A4).get();
-		
-		String a = "A2A4";
-		
-		assertEquals(a,b2.toString());
+	PawnPromoChooser pc1 = new PawnPromoChooser();
+	PawnPromoChooser pc2 = new PawnPromoChooser();
+	
+	MoveValidator mv = new MoveValidator(pc1, pc2);
+	
+	AI ai1 = new AI(mv, pc1);
+	AI ai2 = new AI(mv, pc2);
+	
+	while(!(mv.stalemate() || mv.mate())) {
+		ai1.move();
+		ai2.move();
+	}
+	
+	assertTrue(true);
 	
 	}
 }

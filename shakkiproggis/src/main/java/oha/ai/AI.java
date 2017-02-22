@@ -6,20 +6,22 @@
 package oha.ai;
 
 import java.util.ArrayList;
-import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import oha.shakkiproggis.Board;
 import oha.shakkiproggis.MoveValidator;
+import oha.shakkiproggis.PawnPromoChooser;
 
 /**
  *
  * @author pyry
  */
 public class AI {
-	public MoveValidator mv;
+	private final MoveValidator mv;
+	private final PawnPromoChooser pcX;
 	
-	public AI(MoveValidator zorro) {
-		mv = zorro;
+	public AI(MoveValidator moveMaster, PawnPromoChooser pcX){
+		mv = moveMaster;
+		this.pcX = pcX;
 	}
 	
 	/**
@@ -39,11 +41,10 @@ public class AI {
 		
 		if (!list.isEmpty()) {
 			int i = ThreadLocalRandom.current().nextInt(0, n);
-			mv.movePiece(list.get(i).toString());
+			mv.move(list.get(i).lastMove);
 			return true;
 		} else {
-			System.out.println("GAME HAS ENDED");
-			System.out.println("YOU WON!");
+
 			return false;
 		}
 	}
@@ -63,7 +64,7 @@ public class AI {
 		
 		
 		
-		mv.movePiece(list.get(0).toString());
+		mv.move(list.get(0).toString());
 		
 	
 	}

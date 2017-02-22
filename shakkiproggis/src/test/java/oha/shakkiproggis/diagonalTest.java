@@ -6,7 +6,6 @@
 package oha.shakkiproggis;
 import java.util.EnumSet;
 import oha.shakkiproggis.Board;
-import oha.shakkiproggis.Square;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -46,7 +45,7 @@ public class diagonalTest {
 		
 		EnumSet<Square> sq = EnumSet.noneOf(Square.class);
 		
-		Square.allSquaresOnBoard()
+		Square.allSquares()
 			.filter((Square x) -> (Square.onSameRightDiagonal(Square.A1, x)))
 			.forEach(sq::add);
 		

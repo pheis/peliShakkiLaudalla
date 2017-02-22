@@ -44,9 +44,11 @@ public class listPossibleMovesTest {
 	@Test
 	public void hello() {
 	
-		Board b = new Board();
-	
-		b.piecesToStartingFormation();
+		PawnPromoChooser pc1 = new PawnPromoChooser();
+		PawnPromoChooser pc2 = new PawnPromoChooser();
+		
+
+		Board b = new Board(pc1, pc2);
 	
 		ArrayList<Board> bs = b.listPossibleMoves();
 		
