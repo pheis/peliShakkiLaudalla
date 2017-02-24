@@ -11,8 +11,8 @@
 ![Paina tästä nähdäksesi luokkakaavion](./luokkakaavio.png "luokkakaavio")
 
 **OK siirto**
-![Sekvenssikaavio: Käyttäjä tekee ok siirron](./sekvekssi1.jpg "Ok siirto")
+![Sekvenssikaavio: Käyttäjä tekee ok siirron](./sekvenssi2.jpg "Ok siirto")
 
 
 **Huono siirto**
-![Sekvenssikaavio: Käyttäjä tekee huonon siirron](./sekvenssi2.jpg "Huono siirto")
+![Sekvenssikaavio: Käyttäjä tekee huonon siirron](./sekvenssi1.jpg "Huono siirto")
