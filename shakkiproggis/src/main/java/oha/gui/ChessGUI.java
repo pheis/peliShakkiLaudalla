@@ -46,7 +46,7 @@ public class ChessGUI extends Application {
 	AI ai = new AI(mv, pc2);
 	int startX, startY, endX, endY;
 	boolean doingMove = false;
-	public static final int SQUARESIZE = 100;
+	public static final int SQUARESIZE = 80;
 	public static final int HEIGHT = 8;
 	public static final int WIDTH = 8;
 	private Group squares = new Group();
@@ -68,7 +68,7 @@ public class ChessGUI extends Application {
 		{
 			if (doingMove == false) {
 				startX = (int) Math.floor(event.getSceneX() / SQUARESIZE);
-				startY = 7 - (int) Math.floor(event.getSceneY() / SQUARESIZE);
+				startY = 7 - (int) Math.floor((event.getSceneY() - root.getLayoutY()) / SQUARESIZE);
 				doingMove = true;
 			}			
 		});		
@@ -76,7 +76,7 @@ public class ChessGUI extends Application {
 		{
 			if (doingMove == true) {			
 				endX = (int) Math.floor(event.getSceneX() / SQUARESIZE);
-				endY = 7 - (int) Math.floor(event.getSceneY() / SQUARESIZE);			
+				endY = 7 - (int) Math.floor((event.getSceneY() - root.getLayoutY()) / SQUARESIZE);
 				int startSq = startX + (8 * startY);
 				int endSq = endX + (8 * endY);								
 				if (0 <= startSq && startSq <= 63 && 0 <= endSq && endSq <= 63) {			
@@ -171,14 +171,12 @@ public class ChessGUI extends Application {
 	private int coordToGuiCoordX(int bCoord) {
 		int x;
 		x = bCoord % 8;
-		//x *= 100;
 		return x;
 	}	
 	private int coordToGuiCoordY(int bCoord) {
 		// FIX THIS
 		int y;
 		y = 7 - (bCoord / 8);
-		//y *= 100;
 		return y;
 	}
 	@Override
