@@ -11,3 +11,5 @@ Tää on tämmönen shakkipeli.
 
 ***Dokumentaatio***
 [aiheen kuvaus](dokumentaatio/aiheenKuvausJaRakenne.md)
+[Rakenne](dokumentaatio/RakenneKuvaus.md)
+[Käyttöohje](dokumentaatio/Käyttöohje.md)
