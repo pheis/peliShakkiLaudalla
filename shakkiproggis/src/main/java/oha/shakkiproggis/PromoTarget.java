@@ -6,7 +6,7 @@
 package oha.shakkiproggis;
 
 /**
- *
+ * Possible promotions for a pawn.
  * @author pyry
  */
 // Because there is no way to extend an enum in Java.

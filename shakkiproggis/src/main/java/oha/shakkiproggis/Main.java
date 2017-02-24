@@ -5,22 +5,8 @@
  */
 package oha.shakkiproggis;
 
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.Optional;
-import java.util.TreeSet;
 import oha.gui.ChessGUI;
 import javafx.application.Application;
-import oha.ai.AI;
-import oha.shakkiproggis.Piece.Bishop;
-import oha.shakkiproggis.Piece.BlackPawn;
-import oha.shakkiproggis.Piece.King;
-import oha.shakkiproggis.Piece.Knight;
-import oha.shakkiproggis.Piece.PieceObj;
-import oha.shakkiproggis.Piece.PieceT;
-import oha.shakkiproggis.Piece.Queen;
-import oha.shakkiproggis.Piece.Rook;
-import oha.shakkiproggis.Piece.WhitePawn;
 
 /**
  *

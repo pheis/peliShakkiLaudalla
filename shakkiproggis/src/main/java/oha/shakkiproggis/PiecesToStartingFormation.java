@@ -6,15 +6,15 @@
 package oha.shakkiproggis;
 
 import java.util.EnumMap;
-import oha.shakkiproggis.Piece.Bishop;
-import oha.shakkiproggis.Piece.BlackPawn;
-import oha.shakkiproggis.Piece.King;
-import oha.shakkiproggis.Piece.Knight;
-import oha.shakkiproggis.Piece.PieceT;
-import oha.shakkiproggis.Piece.Queen;
-import oha.shakkiproggis.Piece.Rook;
-import oha.shakkiproggis.Piece.WhitePawn;
-import oha.shakkiproggis.Piece.PieceObj;
+import oha.shakkiproggis.pieces.Bishop;
+import oha.shakkiproggis.pieces.BlackPawn;
+import oha.shakkiproggis.pieces.King;
+import oha.shakkiproggis.pieces.Knight;
+import oha.shakkiproggis.pieces.PieceT;
+import oha.shakkiproggis.pieces.Queen;
+import oha.shakkiproggis.pieces.Rook;
+import oha.shakkiproggis.pieces.WhitePawn;
+import oha.shakkiproggis.pieces.PieceObj;
 
 
 /**
@@ -24,7 +24,7 @@ import oha.shakkiproggis.Piece.PieceObj;
  */
 public interface PiecesToStartingFormation {
 	/**
-	 * 
+	 * Generates the squares to pieces map.
 	 * @param sqPtMap squares to piece enum map. Squares are piece locations.
 	 * @param white if pieces are white true. if they are black then false.
 	 */
@@ -46,7 +46,7 @@ public interface PiecesToStartingFormation {
 		}
 	}
 	/**
-	 * 
+	 * Puts white pawns to their correct place on the begining of the game.
 	 * @param sqPtMap Squares to Pieces enum map.  Squares are piece locations.
 	 */
 	default void wPawnStartForm(EnumMap<Square, PieceT> sqPtMap) {
@@ -56,7 +56,7 @@ public interface PiecesToStartingFormation {
 		}
 	}
 	/**
-	 * 
+	 * Puts black pawn to starting formation on the befginning of the game.
 	 * @param sqPtMap Squares to pieces enum map. Squares are piece locations. 
 	 */
 	default void bPawnStartForm(EnumMap<Square, PieceT> sqPtMap) {
@@ -66,7 +66,7 @@ public interface PiecesToStartingFormation {
 		}
 	}
 	/**
-	 * 
+	 * Generates the piece type to piece object map.
 	 * @param pTpMap piece enum to piece object map.
 	 * @param white true if pieces are white. else false.
 	 */

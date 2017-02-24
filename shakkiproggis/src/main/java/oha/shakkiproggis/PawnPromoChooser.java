@@ -5,10 +5,10 @@
  */
 package oha.shakkiproggis;
 
-import oha.shakkiproggis.Piece.PieceT;
+import oha.shakkiproggis.pieces.PieceT;
 
 /**
- *
+ * Mutable object used to choose the piece that we want our pawns to transform to.
  * @author pyry
  */
 public class PawnPromoChooser {

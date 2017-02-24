@@ -6,7 +6,7 @@ package oha.shakkiproggis.Piece;
  * and open the template in the editor.
  */
 
-import oha.shakkiproggis.Piece.PieceT;
+import oha.shakkiproggis.pieces.PieceT;
 import oha.shakkiproggis.Board;
 import org.junit.After;
 import org.junit.AfterClass;

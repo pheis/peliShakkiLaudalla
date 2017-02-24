@@ -1,15 +1,22 @@
 package oha.shakkiproggis;
 
-import oha.shakkiproggis.Piece.PieceT;
+import oha.shakkiproggis.pieces.PieceT;
 import java.util.ArrayList;
 import java.util.*;
+/**
+ * This class validates moves. Tells if they are ok or not. It also tells where the pieces are on the board.
+ * @author pyry
+ */
 
 public class MoveValidator {
-
 	public ArrayList<Board> gameStates;
 	public int fiftyMoveCounter;
 	public int piecesOnBoard;
-	
+	/**
+	 * Makes new MoveValidator. This is the standard constructor
+	 * @param pc1 pawnpromotarget chooser for player 1
+	 * @param pc2 pawnpromotarget chooser for player 2
+	 */
 	public MoveValidator(PawnPromoChooser pc1, PawnPromoChooser pc2) {
 		this.gameStates = new ArrayList<>();
 		Board b = new Board(pc1, pc2);
@@ -18,6 +25,10 @@ public class MoveValidator {
 		this.fiftyMoveCounter = 0;
 		
 	}
+	/**
+	 * Makes new MoveValidator with a spesific board. used for testing.
+	 * @param board Board first board.
+	 */
 	public MoveValidator(Board board) {
 		this.gameStates = new ArrayList<>();
 		Board b = board;
@@ -26,7 +37,7 @@ public class MoveValidator {
 		this.fiftyMoveCounter = 0;
 	}
 	/**
-	 * 
+	 * Current game state. 
 	 * @return current game state.
 	 */
 	public Board lastBoard() {
@@ -34,7 +45,7 @@ public class MoveValidator {
 	}
 	
 	/**
-	 * 
+	 * Possible move from the current situation.
 	 * @return Possible moves from current game state. 
 	 */
 	public ArrayList<Board> listMoves() {
@@ -43,7 +54,7 @@ public class MoveValidator {
 		return movesList;
 	}
 	/**
-	 * 
+	 * used by text ui.
 	 * @return pairs of locations and names of current players pieces. Used by text ui.
 	 */
 	public HashMap<Integer, String> getMyPieceStrings() {
@@ -54,7 +65,7 @@ public class MoveValidator {
 	}
 	
 	/**
-	 * 
+	 * used by text ui.
 	 * @return locations and names of other player pieces. Used by text ui.
 	 */
 	public HashMap<Integer, String> getEnemyPieceStrings() {
@@ -64,7 +75,7 @@ public class MoveValidator {
 		return pieces;
 	}
 	/**
-	 * 
+	 * locations and piece type of current players pieces.
 	 * @return locations and Piece types of current players pieces. 
 	 */
 	public HashMap<Integer, PieceT> getMyPieces() {
@@ -73,7 +84,8 @@ public class MoveValidator {
 			.forEach(sq -> pieces.put(sq.ordinal(), lastBoard().my.sqPtMap.get(sq)));
 		return pieces;
 	}
-		/**
+	/**
+	 * Enemy pieces. Enemy is the one that's turn it is not.
 	 * 
 	 * @return locations and Piece types of other players pieces. 
 	 */
@@ -85,7 +97,7 @@ public class MoveValidator {
 	}
 	
 	/**
-	 * 
+	 * Am I white or black.
 	 * @return true if current player is white. Otherwiser false.
 	 */
 	
@@ -97,14 +109,14 @@ public class MoveValidator {
 		return (listMoves().isEmpty()) ? true : false;
 	}
 	/**
-	 * 
+	 * Is it a Mate.
 	 * @return True if game has ended in mate. Else false.
 	 */
 	public boolean mate() {
 		return (gameOver()) ? (lastBoard().kingInCheck()) : false;
 	}
 	/**
-	 * 
+	 * Is it a staleamte.
 	 * @return True if game has ended in stalemate. Else false.
 	 */
 	public boolean stalemate() {
@@ -114,7 +126,7 @@ public class MoveValidator {
 	}
 
 	/**
-	 * 
+	 * Move the piece.
 	 * @param bName for example G2F4. Former letter number pair is starting coordinate. Second one is where we want tom move a piece.
 	 * @return true if move was valid. else False. If move was not valid new game state is not created.
 	 */
@@ -130,6 +142,11 @@ public class MoveValidator {
 			return true;
 		}
 	}
+	/**
+	 * Move the piece.
+	 * @param m the move that you want to make.
+	 * @return True if and only if the move was possible to make and has been made.
+	 */
 	public boolean move(Move m) {
 		Optional<Board> b = listMoves().stream()
 						.filter(x -> x.toString().equals(m.toString()))
@@ -147,7 +164,7 @@ public class MoveValidator {
 	
 	private void updateFiftyMoveCounter(Board b, Move m) {
 		PieceT lastMover = b.enemy.sqPtMap.get(m.second);
-		if(lastMover == PieceT.BPAWN || lastMover == PieceT.WPAWN) {
+		if (lastMover == PieceT.BPAWN || lastMover == PieceT.WPAWN) {
 			this.fiftyMoveCounter = 0;
 		} else if (this.piecesOnBoard != b.piecesOnBoard()) {
 			this.fiftyMoveCounter = 0;

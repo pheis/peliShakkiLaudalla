@@ -4,7 +4,15 @@
  * and open the template in the editor.
  */
 package oha.shakkiproggis.Piece;
-import oha.shakkiproggis.Piece.PieceT;
+import oha.shakkiproggis.pieces.Rook;
+import oha.shakkiproggis.pieces.PieceObj;
+import oha.shakkiproggis.pieces.Knight;
+import oha.shakkiproggis.pieces.King;
+import oha.shakkiproggis.pieces.Bishop;
+import oha.shakkiproggis.pieces.WhitePawn;
+import oha.shakkiproggis.pieces.Queen;
+import oha.shakkiproggis.pieces.BlackPawn;
+import oha.shakkiproggis.pieces.PieceT;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.EnumSet;

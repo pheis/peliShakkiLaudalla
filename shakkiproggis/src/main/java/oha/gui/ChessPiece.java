@@ -5,27 +5,27 @@
  */
 package oha.gui;
 
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-//import static javafx.scene.paint.Color.color;
-
-import javafx.scene.shape.Ellipse;
 import static oha.gui.ChessGUI.SQUARESIZE;
-import oha.shakkiproggis.Piece.PieceT;
+import oha.shakkiproggis.pieces.PieceT;
 
 /**
- *
+ * Chess pieces for the gui. Has graphics and all.
  * @author pyry
  */
 public class ChessPiece extends StackPane {
 	
-
-
 	
 	//public chessPiece(int x, int y, Piece type, boolean isWhite) {
-	
+	/**
+	 * Chess piece.
+	 * @param x file
+	 * @param y rank
+	 * @param type what kind of a piece
+	 * @param isWhite is it white
+	 * @param img Image of a piece.
+	 */
 	public ChessPiece(int x, int y, PieceT type, boolean isWhite, Imageload img) {
 
 		relocate(x * SQUARESIZE, y * SQUARESIZE);

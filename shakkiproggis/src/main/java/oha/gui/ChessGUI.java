@@ -17,13 +17,16 @@ import javafx.scene.Parent;
 
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import oha.ai.AI;
 
 /**
- *
+ * This is the gui for the program.
  * @author pyry
  */
 public class ChessGUI extends Application {
@@ -50,9 +53,58 @@ public class ChessGUI extends Application {
 	private Group pieces = new Group();
 	private ArrayList<ChessPiece> piecesList = new ArrayList<>();
 	private Parent createContent() {
+		
 		Pane root = new Pane();
+		
+
 		root.setPrefSize(WIDTH * SQUARESIZE, HEIGHT * SQUARESIZE);	
+
+	
+
 		root.getChildren().addAll(squares, pieces);
+		
+		
+		root.setOnMousePressed((MouseEvent event) ->
+		{
+			if (doingMove == false) {
+				startX = (int) Math.floor(event.getSceneX() / SQUARESIZE);
+				startY = 7 - (int) Math.floor(event.getSceneY() / SQUARESIZE);
+				doingMove = true;
+			}			
+		});		
+		root.setOnMouseReleased((MouseEvent event) ->
+		{
+			if (doingMove == true) {			
+				endX = (int) Math.floor(event.getSceneX() / SQUARESIZE);
+				endY = 7 - (int) Math.floor(event.getSceneY() / SQUARESIZE);			
+				int startSq = startX + (8 * startY);
+				int endSq = endX + (8 * endY);								
+				if (0 <= startSq && startSq <= 63 && 0 <= endSq && endSq <= 63) {			
+					
+					Square a = Square.values()[startSq];
+					Square b = Square.values()[endSq];
+					
+					Move move = new Move(a, b);
+							
+					boolean t;			
+					t = mv.move(move);				
+					if (t) {
+						updCont();				
+						ai.move();	
+						updCont();
+					}	
+					System.out.println(t);	
+					System.out.println(move.toString());
+				}	
+			}
+			doingMove = false;
+		});
+		
+		
+		
+		
+		
+		
 		for (int i = 0; i < HEIGHT; i++) {
 			for (int j = 0; j < WIDTH; j++) {
 				ChessSquare sq = new ChessSquare((i + j) % 2 == 0, i, j);
@@ -131,43 +183,25 @@ public class ChessGUI extends Application {
 	}
 	@Override
 	public void start(Stage primaryStage) throws Exception {	
-		Scene scene = new Scene(createContent());	
-		scene.setOnMousePressed((MouseEvent event) ->
-		{
-			if (doingMove == false) {
-				startX = (int) Math.floor(event.getSceneX() / SQUARESIZE);
-				startY = 7 - (int) Math.floor(event.getSceneY() / SQUARESIZE);
-				doingMove = true;
-			}			
-		});		
-		scene.setOnMouseReleased((MouseEvent event) ->
-		{
-			if (doingMove == true) {			
-				endX = (int) Math.floor(event.getSceneX() / SQUARESIZE);
-				endY = 7 - (int) Math.floor(event.getSceneY() / SQUARESIZE);			
-				int startSq = startX + (8 * startY);
-				int endSq = endX + (8 * endY);								
-				if (0 <= startSq && startSq <= 63 && 0 <= endSq && endSq <= 63) {			
-					
-					Square a = Square.values()[startSq];
-					Square b = Square.values()[endSq];
-					
-					Move move = new Move(a, b);
-							
-					boolean t;			
-					t = mv.move(move);				
-					if (t) {
-						updCont();				
-						ai.move();	
-						updCont();
-					}	
-					System.out.println(t);	
-					System.out.println(move.toString());
-				}	
-			}
-			doingMove = false;
-		});
+		Scene scene = new Scene(new VBox());
 		
+		
+		MenuBar menuBar = new MenuBar();
+ 
+        // --- Menu File
+        Menu menuNewGame = new Menu("New Game");
+ 
+        // --- Menu Edit
+        Menu menuOptions = new Menu("Options");
+ 
+        // --- Menu View
+        Menu menuMore = new Menu("More");
+ 
+        menuBar.getMenus().addAll(menuNewGame, menuOptions, menuMore);
+ 
+ 
+        ((VBox) scene.getRoot()).getChildren().addAll(menuBar, createContent());
+
 
 			
 		primaryStage.setTitle("Very High Quality Chess Program");	

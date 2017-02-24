@@ -6,6 +6,14 @@
 
 package oha.shakkiproggis.Piece;
 
+import oha.shakkiproggis.pieces.Rook;
+import oha.shakkiproggis.pieces.PieceObj;
+import oha.shakkiproggis.pieces.Knight;
+import oha.shakkiproggis.pieces.King;
+import oha.shakkiproggis.pieces.Bishop;
+import oha.shakkiproggis.pieces.WhitePawn;
+import oha.shakkiproggis.pieces.Queen;
+import oha.shakkiproggis.pieces.BlackPawn;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.EnumSet;
@@ -19,8 +27,8 @@ import oha.shakkiproggis.Board;
 import oha.shakkiproggis.Move;
 import oha.shakkiproggis.MoveValidator;
 import oha.shakkiproggis.PawnPromoChooser;
-import oha.shakkiproggis.Piece.PieceT;
-import oha.shakkiproggis.Piece.PieceT;
+import oha.shakkiproggis.pieces.PieceT;
+import oha.shakkiproggis.pieces.PieceT;
 import oha.shakkiproggis.PieceGroup;
 import oha.shakkiproggis.Square;
 import oha.shakkiproggis.Square;

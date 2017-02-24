@@ -9,5 +9,9 @@ Päivä      | Tunnit | Kuvaus                                                 |
 03.02.2017 | 7h     | ziljoona checkstylekorjausta, lisää logiikka, PIT, Luokkakaavio, Readme.md jne.|
 06.02.2015 | 9h     | graafinen käyttis, tekstikäyttis, tekoäly              |
 09.02.2017 | 4h     | graafinen käyttis, tekoäly |
-10.02.2017 | 80h	| graafinen käyttis, tekoäly, testejä lisää, ja uudelleen kirjoitus, javadoc |
+10.02.2017 | 8h	    | graafinen käyttis, tekoäly, testejä lisää, ja uudelleen kirjoitus, javadoc |
+17.02.2017 | 8h     | refraktorointia. Jajoin useampaan luokkaan ja interfaceen. |
+18.02.2017 | 4h  	| refraktorointi jatkuu. |
+21.02.2017 | 7h		| refraktorointi jatkuu. |
+24.02.2017 | 7h 	| Aloin rakentelemaan menua käyttikseen. dl5 ja dl6 kuntoon. |
 

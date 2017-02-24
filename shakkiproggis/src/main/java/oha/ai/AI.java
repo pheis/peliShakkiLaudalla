@@ -12,23 +12,26 @@ import oha.shakkiproggis.MoveValidator;
 import oha.shakkiproggis.PawnPromoChooser;
 
 /**
- *
+ * This is AI object. does moves on a chess board.
  * @author pyry
  */
 public class AI {
 	private final MoveValidator mv;
 	private final PawnPromoChooser pcX;
-	
-	public AI(MoveValidator moveMaster, PawnPromoChooser pcX){
+	/**
+	 * Default constructor. makes new object.
+	 * @param moveMaster Movevalidator object. contains the pieces that AI will move.
+	 * @param pcX PawnPromotionTarget chooser. Mutable object. Needed for choosing pawn promotion target.
+	 */
+	public AI(MoveValidator moveMaster, PawnPromoChooser pcX) {
 		mv = moveMaster;
 		this.pcX = pcX;
 	}
 	
 	/**
-	 * Makes a move
+	 * Makes a move.
 	 * @return true if it was possible to move. false when mate or stalemate.
 	 */
-	
 	public boolean move() {
 		
 		ArrayList<Board> list = mv.listMoves();
@@ -48,6 +51,9 @@ public class AI {
 			return false;
 		}
 	}
+	/**
+	 * Makes a move. This one always chooses the first move from the list. Deterministic. Handy for testing.
+	 */
 
 	public void fmove() {
 		

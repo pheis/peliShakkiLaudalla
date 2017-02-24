@@ -13,7 +13,7 @@ import oha.shakkiproggis.MoveValidator;
 import oha.shakkiproggis.PawnPromoChooser;
 
 /**
- *
+ * Text ui. ugh.
  * @author pyry
  */
 public class TextUI {
@@ -32,14 +32,17 @@ public class TextUI {
 	public static final String ANSI_PURPLE = "\u001B[35m";
 	public static final String ANSI_CYAN = "\u001B[36m";
 	public static final String ANSI_WHITE = "\u001B[37m";
-	
+	/**
+	 * constructor. yeps.
+	 */
 	public TextUI() {
 		mv = new MoveValidator(pc1, pc2);
 	}
 	
 	
-	
-	
+	/**
+	 * Prints some text.
+	 */
 	public void printUI() {
 		
 		HashMap<Integer, String> myPieces = mv.getMyPieceStrings();		
@@ -58,7 +61,9 @@ public class TextUI {
 			System.out.printf("\n\n");
 		}	
 	}
-	
+	/**
+	 * lets play. 
+	 */
 	public void play() {
 		Scanner sc = new Scanner(System.in);
 		AI ai = new AI(mv, pc2);

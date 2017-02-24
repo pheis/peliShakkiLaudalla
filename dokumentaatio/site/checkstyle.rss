@@ -19,14 +19,14 @@ under the License.
 -->
 <rss version="0.91">
   <channel>
-    <title>shakkiproggis - Checkstyle report</title>
+    <title>SHAKKI - Checkstyle report</title>
     <link>${project.url}</link>
-    <description>shakkiproggis - Checkstyle report</description>
+    <description>SHAKKI - Checkstyle report</description>
     <language>en-us</language>
     <copyright>&#169;2017</copyright>
     <item>
-      <title>File: 11,
-             Errors: 1,
+      <title>File: 28,
+             Errors: 9,
              Warnings: 0,
              Infos: 0
       </title>
@@ -46,6 +46,132 @@ under the License.
           <tbody>
                           <tr>
                 <td>
+                  <a href="${project.url}/checkstyle.html#oha.gui.ChessPiece.java">oha/gui/ChessPiece.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#oha.shakkiproggis.pieces.BishopMoves.java">oha/shakkiproggis/pieces/BishopMoves.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#oha.shakkiproggis.pieces.PieceT.java">oha/shakkiproggis/pieces/PieceT.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#oha.gui.ChessGUI.java">oha/gui/ChessGUI.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#oha.shakkiproggis.pieces.Rook.java">oha/shakkiproggis/pieces/Rook.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#oha.shakkiproggis.PromoTarget.java">oha/shakkiproggis/PromoTarget.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#oha.shakkiproggis.pieces.Queen.java">oha/shakkiproggis/pieces/Queen.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#oha.shakkiproggis.PiecesToStartingFormation.java">oha/shakkiproggis/PiecesToStartingFormation.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#oha.shakkiproggis.MoveValidator.java">oha/shakkiproggis/MoveValidator.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="${project.url}/checkstyle.html#oha.shakkiproggis.Board.java">oha/shakkiproggis/Board.java</a>
                 </td>
                 <td>
@@ -60,7 +186,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#oha.gui.ChessPiece.java">oha/gui/ChessPiece.java</a>
+                  <a href="${project.url}/checkstyle.html#oha.shakkiproggis.pieces.Knight.java">oha/shakkiproggis/pieces/Knight.java</a>
                 </td>
                 <td>
                   0
@@ -83,26 +209,40 @@ under the License.
                   0
                 </td>
                 <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#oha.shakkiproggis.pieces.BlackPawn.java">oha/shakkiproggis/pieces/BlackPawn.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#oha.shakkiproggis.pieces.RookMoves.java">oha/shakkiproggis/pieces/RookMoves.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
                   0
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#oha.shakkiproggis.Piece.java">oha/shakkiproggis/Piece.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="${project.url}/checkstyle.html#oha.gui.TextUI.java">oha/gui/TextUI.java</a>
+                  <a href="${project.url}/checkstyle.html#oha.shakkiproggis.pieces.Bishop.java">oha/shakkiproggis/pieces/Bishop.java</a>
                 </td>
                 <td>
                   0
@@ -125,12 +265,12 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  2
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#oha.gui.ChessGUI.java">oha/gui/ChessGUI.java</a>
+                  <a href="${project.url}/checkstyle.html#oha.shakkiproggis.pieces.Slideable.java">oha/shakkiproggis/pieces/Slideable.java</a>
                 </td>
                 <td>
                   0
@@ -158,7 +298,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#oha.gui.Iload.java">oha/gui/Iload.java</a>
+                  <a href="${project.url}/checkstyle.html#oha.shakkiproggis.Move.java">oha/shakkiproggis/Move.java</a>
                 </td>
                 <td>
                   0
@@ -172,7 +312,105 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#oha.shakkiproggis.MoveValidator.java">oha/shakkiproggis/MoveValidator.java</a>
+                  <a href="${project.url}/checkstyle.html#oha.shakkiproggis.pieces.PieceObj.java">oha/shakkiproggis/pieces/PieceObj.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#oha.shakkiproggis.pieces.WhitePawn.java">oha/shakkiproggis/pieces/WhitePawn.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#oha.gui.TextUI.java">oha/gui/TextUI.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#oha.gui.Imageload.java">oha/gui/Imageload.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#oha.shakkiproggis.PawnPromoChooser.java">oha/shakkiproggis/PawnPromoChooser.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  3
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#oha.shakkiproggis.PieceGroup.java">oha/shakkiproggis/PieceGroup.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#oha.shakkiproggis.pieces.King.java">oha/shakkiproggis/pieces/King.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#oha.shakkiproggis.pieces.Pawn.java">oha/shakkiproggis/pieces/Pawn.java</a>
                 </td>
                 <td>
                   0
