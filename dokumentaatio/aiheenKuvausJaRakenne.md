@@ -1,5 +1,5 @@
 # Shakkiproggis
-A
+
 **Aihe:** Shakki lautapeli javalla. Ohjelmalla voi pelata shakkia tekoaälyä vastaan.
 
 
@@ -12,5 +12,7 @@ A
 
 **OK siirto**
 ![Sekvenssikaavio: Käyttäjä tekee ok siirron](./sekvekssi1.jpg "Ok siirto")
+
+
 **Huono siirto**
-![Sekvenssikaavio: Käyttäjä tekee huonon siirron](./sekvenssi2.jpg "luokkakaavio")
+![Sekvenssikaavio: Käyttäjä tekee huonon siirron](./sekvenssi2.jpg "Huono siirto")
