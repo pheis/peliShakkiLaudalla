@@ -10,6 +10,9 @@ Tää on tämmönen shakkipeli.
 
 
 ***Dokumentaatio***
+****Aiheen kuvaus****
 [aiheen kuvaus](dokumentaatio/aiheenKuvausJaRakenne.md)
+****Ohjelman Rakenne****
 [Rakenne](dokumentaatio/RakenneKuvaus.md)
+****Käyttöohje****
 [Käyttöohje](dokumentaatio/Käyttöohje.md)
