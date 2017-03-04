@@ -3,7 +3,7 @@ package oha.shakkiproggis;
 
 import java.util.*;
 /**
- * This represents a chess board. Has two piecesets on it. Enemys and mine. This is immutable object
+ * This represents game position in chess. Has two piecesets on it. Enemys and mine. This is immutable object
  * A new board is always generated when a move is done.
  * During generations my pieces turn to enemy pieces and enemy pieces turn to my pieces.
  * The 'me' of a Board if always the player whose turn it is.
@@ -19,7 +19,6 @@ public class Board {
 	 */
 
 	public final boolean color;
-	
 	public final Move lastMove;
 	/**
 	 * This is the default constructor. 
@@ -92,10 +91,34 @@ public class Board {
 		return my.kingInCheck(enemy);
 	}
 	/**
+	 * Tells if two game positions are same.
+	 * @param o object, other game position
+	 * @return true if two game positions are the same
+	 */
+	@Override
+	public boolean equals(Object o) {
+		if (getClass() != o.getClass()) return false;
+		Board other = (Board) o;
+		//boolean t = (this.hashCode() == o.hashCode());
+		boolean t = other.my.sqPtMap.equals(this.my.sqPtMap);
+		t = t ? other.enemy.sqPtMap.equals(this.enemy.sqPtMap) : t;
+		t = t ? (other.color == this.color) : t;
+		if (t) {
+			ArrayList<Long> possMoves = new ArrayList<>();
+			other.listPossibleMoves().stream()
+								.map(b -> b.lastMove.toLong())
+								.forEach(l -> possMoves.add(l));
+			for (Board b : listPossibleMoves()) {
+				if (!possMoves.contains(b.lastMove.toLong())) return false;
+			}
+		}
+		return t;
+	}
+	
+	/**
 	 * Tells about the last move.
 	 * @return Last move that was done. 
 	 */
-	
 	@Override
 	public String toString() {
 		return this.lastMove.toString();

@@ -5,13 +5,14 @@
  */
 package oha.gui;
 
-import static java.nio.file.Files.size;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 import oha.shakkiproggis.Square;
 import oha.shakkiproggis.*;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 
@@ -19,11 +20,16 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
-import javafx.scene.image.Image;
+import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import oha.ai.AI;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import oha.shakkiproggis.Game;
 
 /**
  * This is the gui for the program.
@@ -36,22 +42,29 @@ public class ChessGUI extends Application {
 	
 	// promoChooserin kaa pitää ziigata kun implementoin värin valinnan.
 	
-	PawnPromoChooser pc1 = new PawnPromoChooser();
-	PawnPromoChooser pc2 = new PawnPromoChooser();
+	//PawnPromoChooser pc1 = new PawnPromoChooser();
+	//PawnPromoChooser pc2 = new PawnPromoChooser();
 	
-	MoveValidator mv = new MoveValidator(pc1, pc2);
+	//MoveValidator mv = new MoveValidator(pc1, pc2);
 	
-	AI ai2 = new AI(mv, pc1);
+	//AI ai2 = new AI(mv, pc1);
 	
-	AI ai = new AI(mv, pc2);
+	//AI ai = new AI(mv, pc2);
+	
+	
+	public Game game = new Game(false, false);
+	
 	int startX, startY, endX, endY;
-	boolean doingMove = false;
+	public boolean doingMove = false;
 	public static final int SQUARESIZE = 80;
 	public static final int HEIGHT = 8;
 	public static final int WIDTH = 8;
 	private Group squares = new Group();
 	private Group pieces = new Group();
 	private ArrayList<ChessPiece> piecesList = new ArrayList<>();
+	
+	Parent board;
+	
 	private Parent createContent() {
 		
 		Pane root = new Pane();
@@ -72,32 +85,37 @@ public class ChessGUI extends Application {
 				doingMove = true;
 			}			
 		});		
-		root.setOnMouseReleased((MouseEvent event) ->
-		{
-			if (doingMove == true) {			
-				endX = (int) Math.floor(event.getSceneX() / SQUARESIZE);
-				endY = 7 - (int) Math.floor((event.getSceneY() - root.getLayoutY()) / SQUARESIZE);
-				int startSq = startX + (8 * startY);
-				int endSq = endX + (8 * endY);								
-				if (0 <= startSq && startSq <= 63 && 0 <= endSq && endSq <= 63) {			
-					
-					Square a = Square.values()[startSq];
-					Square b = Square.values()[endSq];
-					
-					Move move = new Move(a, b);
-							
-					boolean t;			
-					t = mv.move(move);				
-					if (t) {
-						updCont();				
-						ai.move();	
-						updCont();
-					}	
-					System.out.println(t);	
-					System.out.println(move.toString());
-				}	
+		root.setOnMouseReleased(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				if (doingMove == true) {
+					endX = (int) Math.floor(event.getSceneX() / SQUARESIZE);
+					endY = 7 - (int) Math.floor((event.getSceneY() - root.getLayoutY()) / SQUARESIZE);
+					int startSq = startX + (8 * startY);
+					int endSq = endX + (8 * endY);
+					if (0 <= startSq && startSq <= 63 && 0 <= endSq && endSq <= 63) {
+						
+						Square a = Square.values()[startSq];
+						Square b = Square.values()[endSq];
+						
+						Move move = new Move(a, b);
+						
+						boolean t = false;
+						t = game.move(move);
+						
+						if (t) updateContent();
+						
+						gameOver();
+						
+						if (t && !game.mate() && !game.draw()) {	
+							game.aiMove();
+							updateContent();
+							gameOver();
+						}
+					}
+				}
+				doingMove = false;
 			}
-			doingMove = false;
 		});
 		
 		
@@ -108,26 +126,26 @@ public class ChessGUI extends Application {
 		for (int i = 0; i < HEIGHT; i++) {
 			for (int j = 0; j < WIDTH; j++) {
 				ChessSquare sq = new ChessSquare((i + j) % 2 == 0, i, j);
-				mv.getMyPieces()
+				game.mv.getMyPieces()
 								.keySet()
 								.forEach(p ->
 								{
 									int gX = coordToGuiCoordX(p);
 									int gY = coordToGuiCoordY(p);
 									ChessPiece piece;
-									piece = new ChessPiece(gX, gY, mv.getMyPieces().get(p), mv.iAmWhite(), il);
+									piece = new ChessPiece(gX, gY, game.mv.getMyPieces().get(p), game.mv.iAmWhite(), il);
 									piecesList.add(piece);
 									pieces.getChildren().add(piece);
 								});
 
-				mv.getEnemyPieces()
+				game.mv.getEnemyPieces()
 								.keySet()
 								.forEach(p ->
 								{		
 									int gX = coordToGuiCoordX(p);
 									int gY = coordToGuiCoordY(p);
 									ChessPiece piece;
-									piece = new ChessPiece(gX, gY, mv.getEnemyPieces().get(p), !mv.iAmWhite(), il);
+									piece = new ChessPiece(gX, gY, game.mv.getEnemyPieces().get(p), !game.mv.iAmWhite(), il);
 									piecesList.add(piece);
 									pieces.getChildren().add(piece);
 								});
@@ -137,31 +155,32 @@ public class ChessGUI extends Application {
 		}
 		return root;
 	}
-	private void updCont() {
+	public void updateContent() {
 		piecesList.forEach(p -> this.pieces.getChildren().remove(p));
 		piecesList.removeAll(piecesList);
-		mv.getMyPieces().keySet()
+		game.mv.getMyPieces().keySet()
 						.forEach(p ->
 						{
 							int gX = coordToGuiCoordX(p);
 							int gY = coordToGuiCoordY(p);
 							ChessPiece piece;
-							piece = new ChessPiece(gX, gY, mv.getMyPieces().get(p), mv.iAmWhite(), il);
+							piece = new ChessPiece(gX, gY, game.mv.getMyPieces().get(p), game.mv.iAmWhite(), il);
 							piecesList.add(piece);
 							pieces.getChildren().add(piece);
 						});
 				
 				
-		mv.getEnemyPieces().keySet()
+		game.mv.getEnemyPieces().keySet()
 						.forEach(p ->
 						{
 							int gX = coordToGuiCoordX(p);
 							int gY = coordToGuiCoordY(p);
 							ChessPiece piece;
-							piece = new ChessPiece(gX, gY, mv.getEnemyPieces().get(p), !mv.iAmWhite(), il);
+							piece = new ChessPiece(gX, gY, game.mv.getEnemyPieces().get(p), !game.mv.iAmWhite(), il);
 							piecesList.add(piece);
 							pieces.getChildren().add(piece);
 						});
+		
 	}
 	private int transformGuiCoordToBcoord(double x, double y) {
 		int newX = (int) Math.floor(x / SQUARESIZE);
@@ -179,26 +198,109 @@ public class ChessGUI extends Application {
 		y = 7 - (bCoord / 8);
 		return y;
 	}
+	private void gameOver() {
+		boolean mate = this.game.mate();
+		boolean draw = this.game.draw();
+		if (mate) {
+// root.getChildren().add(text);
+			final Stage dialog = new Stage();
+            dialog.initModality(Modality.APPLICATION_MODAL);
+           // dialog.initOwner();
+            VBox dialogVbox = new VBox(20);
+			
+			Text t = new Text();
+			t.setText("MATE");
+			t.setFont(Font.font("Serif", FontWeight.BOLD, 100));
+			t.setFill(Color.RED); 
+			t.setCache(true);
+			
+			
+            dialogVbox.getChildren().add(t);
+            Scene dialogScene = new Scene(dialogVbox, 400, 100);
+            dialog.setScene(dialogScene);
+            dialog.show();
+		}
+		if (draw) {
+			final Stage dialog = new Stage();
+            dialog.initModality(Modality.APPLICATION_MODAL);
+           // dialog.initOwner();
+            VBox dialogVbox = new VBox(20);
+			
+			Text t = new Text();
+			t.setText("DRAW");
+			t.setFont(Font.font("Serif", FontWeight.BOLD, 100));
+			t.setFill(Color.GREEN); 
+			t.setCache(true);
+			
+			
+            dialogVbox.getChildren().add(t);
+            Scene dialogScene = new Scene(dialogVbox, 400, 100);
+            dialog.setScene(dialogScene);
+			dialog.show();
+		}
+	}
+	
 	@Override
 	public void start(Stage primaryStage) throws Exception {	
 		Scene scene = new Scene(new VBox());
 		
+		this.board = createContent();
 		
 		MenuBar menuBar = new MenuBar();
  
-        // --- Menu File
+        // --- Menu new game
         Menu menuNewGame = new Menu("New Game");
+		
+		MenuItem humVsAi = new MenuItem("Human vs Computer");
+		MenuItem aiVsHum = new MenuItem("Computer vs Human");
+		MenuItem humVsHum = new MenuItem("Human vs Human");
+		
+		humVsAi.setOnAction((ActionEvent t) -> {
+			game = new Game(true, true);
+			updateContent();
+		});
+		aiVsHum.setOnAction((ActionEvent t) -> {
+			game = new Game(false, true);
+			updateContent();
+		});
+		humVsHum.setOnAction((ActionEvent t) -> {
+			game = new Game(false, false);
+			updateContent();
+		});
+
+
+		menuNewGame.getItems().addAll(humVsAi, aiVsHum, humVsHum);
+		
+		// --- Menu PPC 
+        Menu menuPPC = new Menu("Pawn Promotion");
+		
+		MenuItem setQueen = new MenuItem("Queen");
+		MenuItem setRook = new MenuItem("rook");
+		MenuItem setBishop = new MenuItem("bishop");
+		MenuItem setKnight= new MenuItem("knight");
+		
+		setQueen.setOnAction((ActionEvent t) -> {
+			this.game.pptToQueen();
+			//updateContent();
+		});
+		setRook.setOnAction((ActionEvent t) -> {
+			this.game.pptToRook();
+			//updateContent();
+		});
+		setBishop.setOnAction((ActionEvent t) -> {
+			this.game.pptToBishop();
+		});
+		setKnight.setOnAction((ActionEvent t) -> {
+			this.game.pptToKnight();
+		});
  
-        // --- Menu Edit
-        Menu menuOptions = new Menu("Options");
+		menuPPC.getItems().addAll(setQueen, setRook, setBishop, setKnight);
+
  
-        // --- Menu View
-        Menu menuMore = new Menu("More");
- 
-        menuBar.getMenus().addAll(menuNewGame, menuOptions, menuMore);
+        menuBar.getMenus().addAll(menuNewGame, menuPPC);
  
  
-        ((VBox) scene.getRoot()).getChildren().addAll(menuBar, createContent());
+        ((VBox) scene.getRoot()).getChildren().addAll(menuBar, this.board);
 
 
 			

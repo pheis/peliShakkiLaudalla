@@ -14,4 +14,4 @@ Päivä      | Tunnit | Kuvaus                                                 |
 18.02.2017 | 4h  	| refraktorointi jatkuu. |
 21.02.2017 | 7h		| refraktorointi jatkuu. |
 24.02.2017 | 7h 	| Aloin rakentelemaan menua käyttikseen. dl5 ja dl6 kuntoon. |
-
+04.03.2017 | 8h     | Menu kuntoon. Gameolio abstraktiotaso. Koodin karsintaa. Tekstikäyttis poistettu. Uusia testejä uudelle gameolioille. |

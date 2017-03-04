@@ -19,7 +19,6 @@ public class PawnPromoChooser {
 	public void set(PromoTarget nPT) {
 		this.pT = nPT;
 	}	
-	
 	public PieceT get() {
 		switch (this.pT) {
 			case QUEEN:

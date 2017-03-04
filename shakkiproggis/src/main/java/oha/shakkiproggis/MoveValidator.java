@@ -23,7 +23,6 @@ public class MoveValidator {
 		this.gameStates.add(b);
 		this.piecesOnBoard = b.piecesOnBoard();
 		this.fiftyMoveCounter = 0;
-		
 	}
 	/**
 	 * Makes new MoveValidator with a spesific board. used for testing.
@@ -52,27 +51,6 @@ public class MoveValidator {
 		Board b = this.gameStates.get(gameStates.size() - 1);
 		ArrayList<Board> movesList = b.listPossibleMoves();
 		return movesList;
-	}
-	/**
-	 * used by text ui.
-	 * @return pairs of locations and names of current players pieces. Used by text ui.
-	 */
-	public HashMap<Integer, String> getMyPieceStrings() {
-		HashMap<Integer, String> pieces = new HashMap<>();	
-		lastBoard().my.squares()
-			.forEach(x -> pieces.put(x.ordinal(), lastBoard().my.sqPtMap.get(x).toString()));
-		return pieces;
-	}
-	
-	/**
-	 * used by text ui.
-	 * @return locations and names of other player pieces. Used by text ui.
-	 */
-	public HashMap<Integer, String> getEnemyPieceStrings() {
-		HashMap<Integer, String> pieces = new HashMap<>();
-		lastBoard().enemy.squares()
-			.forEach(x -> pieces.put(x.ordinal(), lastBoard().enemy.sqPtMap.get(x).toString()));
-		return pieces;
 	}
 	/**
 	 * locations and piece type of current players pieces.
@@ -116,18 +94,19 @@ public class MoveValidator {
 		return (gameOver()) ? (lastBoard().kingInCheck()) : false;
 	}
 	/**
-	 * Is it a staleamte.
+	 * Is it a draw.
 	 * @return True if game has ended in stalemate. Else false.
 	 */
-	public boolean stalemate() {
-		boolean t = (this.fiftyMoveCounter >= 99) ? true : false; 
+	public boolean draw() {
+		boolean t = (this.fiftyMoveCounter >= 99); 
 		t = (gameOver()) ? !(lastBoard().kingInCheck()) : t;
+		t = !t ? repetition() : t;
 		return t;
 	}
 
 	/**
 	 * Move the piece.
-	 * @param bName for example G2F4. Former letter number pair is starting coordinate. Second one is where we want tom move a piece.
+	 * @param bName for example G2F4. Former letter number pair is the starting coordinate. The second one is where we want to move a piece.
 	 * @return true if move was valid. else False. If move was not valid new game state is not created.
 	 */
 	public boolean move(String bName) {
@@ -145,13 +124,13 @@ public class MoveValidator {
 	/**
 	 * Move the piece.
 	 * @param m the move that you want to make.
-	 * @return True if and only if the move was possible to make and has been made.
+	 * @return True if and only if the move was possible to do.
 	 */
 	public boolean move(Move m) {
 		Optional<Board> b = listMoves().stream()
 						.filter(x -> x.toString().equals(m.toString()))
 						.findFirst();
-		boolean t = b.isPresent();
+		boolean t = b.isPresent() && !draw();
 		if (!t) {
 			return false;
 		} else {
@@ -160,7 +139,6 @@ public class MoveValidator {
 			return true;
 		}
 	}
-	
 	
 	private void updateFiftyMoveCounter(Board b, Move m) {
 		PieceT lastMover = b.enemy.sqPtMap.get(m.second);
@@ -173,5 +151,23 @@ public class MoveValidator {
 			this.fiftyMoveCounter++;
 		}
 	}
+	
+	private boolean repetition() {
+		int lim = this.gameStates.size();
+		for (int i = 0; i < lim; i++) {
+			for (int j = i + 1; j < lim; j++) {
+				for (int k = j + 1; k < lim; k++) {
+					Board a = this.gameStates.get(i);
+					Board b = this.gameStates.get(j);
+					Board c = this.gameStates.get(k);
+					if (a.equals(b) && b.equals(c)) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	
 }
 

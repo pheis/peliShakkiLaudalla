@@ -13,7 +13,7 @@ import oha.shakkiproggis.Square;
 import oha.shakkiproggis.pieces.PieceObj;
 
 /**
- *
+ * Implements blackpawn moves and attacks.
  * @author pyry
  */
 public class BlackPawn implements Pawn, PieceObj {

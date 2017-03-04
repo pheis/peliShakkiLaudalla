@@ -19,14 +19,14 @@ under the License.
 -->
 <rss version="0.91">
   <channel>
-    <title>SHAKKI - Checkstyle report</title>
+    <title>shakkiproggis - Checkstyle report</title>
     <link>${project.url}</link>
-    <description>SHAKKI - Checkstyle report</description>
+    <description>shakkiproggis - Checkstyle report</description>
     <language>en-us</language>
     <copyright>&#169;2017</copyright>
     <item>
       <title>File: 28,
-             Errors: 9,
+             Errors: 13,
              Warnings: 0,
              Infos: 0
       </title>
@@ -97,7 +97,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  1
+                  4
                 </td>
               </tr>
                           <tr>
@@ -181,7 +181,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  1
+                  3
                 </td>
               </tr>
                           <tr>
@@ -223,12 +223,26 @@ under the License.
                   0
                 </td>
                 <td>
-                  1
+                  0
                 </td>
               </tr>
                           <tr>
                 <td>
                   <a href="${project.url}/checkstyle.html#oha.shakkiproggis.pieces.RookMoves.java">oha/shakkiproggis/pieces/RookMoves.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#oha.shakkiproggis.Game.java">oha/shakkiproggis/Game.java</a>
                 </td>
                 <td>
                   0
@@ -327,20 +341,6 @@ under the License.
                           <tr>
                 <td>
                   <a href="${project.url}/checkstyle.html#oha.shakkiproggis.pieces.WhitePawn.java">oha/shakkiproggis/pieces/WhitePawn.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="${project.url}/checkstyle.html#oha.gui.TextUI.java">oha/gui/TextUI.java</a>
                 </td>
                 <td>
                   0

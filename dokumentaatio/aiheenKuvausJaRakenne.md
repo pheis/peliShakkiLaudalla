@@ -1,5 +1,5 @@
 # Shakkiproggis
-
+A
 **Aihe:** Shakki lautapeli javalla. Ohjelmalla voi pelata shakkia tekoaälyä vastaan.
 
 
