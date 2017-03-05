@@ -24,6 +24,6 @@ Tää on tämmönen shakkipeli.
 
 [Käyttöohje](dokumentaatio/Käyttöohje.md)
 
-*** Lisenssijuttuja ***
+***Lisenssijuttuja***
 
 Ohjelman kuvakkeet on tehnyt Colin M. L. Burnett niminen henkilö. Ne on BSD/GPL lisenssin alaisia.
