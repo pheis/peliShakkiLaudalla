@@ -162,7 +162,7 @@
 <a class="jxr_linenumber" name="L154" href="#L154">154</a> 	
 <a class="jxr_linenumber" name="L155" href="#L155">155</a> 	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> repetition() {
 <a class="jxr_linenumber" name="L156" href="#L156">156</a> 		<strong class="jxr_keyword">int</strong> lim = <strong class="jxr_keyword">this</strong>.gameStates.size();
-<a class="jxr_linenumber" name="L157" href="#L157">157</a> 		<strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; lim; i++) {
+<a class="jxr_linenumber" name="L157" href="#L157">157</a> 		<strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = lim - <strong class="jxr_keyword">this</strong>.fiftyMoveCounter - 1; i &lt; lim; i++) {
 <a class="jxr_linenumber" name="L158" href="#L158">158</a> 			<strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> j = i + 1; j &lt; lim; j++) {
 <a class="jxr_linenumber" name="L159" href="#L159">159</a> 				<strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> k = j + 1; k &lt; lim; k++) {
 <a class="jxr_linenumber" name="L160" href="#L160">160</a> 					Board a = <strong class="jxr_keyword">this</strong>.gameStates.get(i);

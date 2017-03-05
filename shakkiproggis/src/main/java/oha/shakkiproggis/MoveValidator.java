@@ -154,7 +154,7 @@ public class MoveValidator {
 	
 	private boolean repetition() {
 		int lim = this.gameStates.size();
-		for (int i = 0; i < lim; i++) {
+		for (int i = lim - this.fiftyMoveCounter - 1; i < lim; i++) {
 			for (int j = i + 1; j < lim; j++) {
 				for (int k = j + 1; k < lim; k++) {
 					Board a = this.gameStates.get(i);
